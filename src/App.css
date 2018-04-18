@@ -1,0 +1,147 @@
+.app-box {
+  display: flex;
+  display: -webkit-flex;
+  flex-basis: 100%;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+.app-header {
+  display: flex;
+  display: -webkit-flex;
+  flex-basis: 100%;
+  justify-content: center;
+  background-color: #2e2e2e;
+  color: white;
+}
+
+.btc-summary-info-box {
+  display: flex;
+  display: -webkit-flex;
+  flex-basis: 100%;
+  justify-content: space-around;
+  margin-top: 15px;
+}
+
+.block-details-box {
+  display: flex;
+  display: -webkit-flex;
+  flex-basis: 100%;
+  justify-content: space-around;
+  margin-top: 15px;
+}
+
+.block-details {
+  display: flex;
+  display: -webkit-flex;
+  margin: 0px 3px;
+}
+
+.tree-level {
+  display: flex;
+  display: -webkit-flex;
+  flex-basis: 100%;
+  justify-content: space-around;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.tree-block {
+  display: flex;
+  display: -webkit-flex;
+  margin: 1px 0px;
+}
+
+.level-0-block {
+  width: 40px;
+  height: 40px;
+  background-color: #0404b4;
+  border: 1px solid black;
+}
+
+.level-1-block {
+  width: 35px;
+  height: 35px;
+  background-color: #045fb4;
+  border: 1px solid black;
+}
+
+.level-2-block {
+  width: 30px;
+  height: 30px;
+  background-color: #04b4ae;
+  border: 1px solid black;
+}
+
+.level-3-block {
+  width: 26px;
+  height: 26px;
+  background-color: #04b45f;
+  border: 1px solid black;
+}
+.level-4-block {
+  width: 22px;
+  height: 22px;
+  background-color: #04b404;
+  border: 1px solid black;
+}
+.level-5-block {
+  width: 18px;
+  height: 18px;
+  background-color: #5fb404;
+  border: 1px solid black;
+}
+.level-6-block {
+  width: 16px;
+  height: 16px;
+  background-color: #aeb404;
+  border: 1px solid black;
+}
+.level-7-block {
+  width: 14px;
+  height: 14px;
+  background-color: #b45f04;
+  border: 1px solid black;
+}
+.level-8-block {
+  width: 10px;
+  height: 10px;
+  background-color: #b40404;
+  border: 1px solid black;
+}
+.level-9-block {
+  width: 8px;
+  height: 8px;
+  background-color: #b40431;
+  border: 1px solid black;
+}
+.level-10-block {
+  width: 6px;
+  height: 6px;
+  background-color: #b4045f;
+  border: 1px solid black;
+}
+.level-11-block {
+  width: 5px;
+  height: 5px;
+  background-color: #b404ae;
+  border: 1px solid black;
+}
+.level-12-block {
+  width: 4px;
+  height: 4px;
+  background-color: #8904b1;
+  border: 1px solid black;
+}
+.level-13-block {
+  width: 3px;
+  height: 3px;
+  background-color: #5f04b4;
+  border: 1px solid black;
+}
+.level-14-block {
+  width: 2px;
+  height: 2px;
+  background-color: #3104b4;
+  border: 1px solid black;
+}
