@@ -8,6 +8,7 @@ export function broadcastTxData(tx) {
 
 export function txData(tx) {
   return dispatch => {
+    console.log('i am the tx in the action creators --->', tx);
     dispatch(broadcastTxData(tx));
   };
 }

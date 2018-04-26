@@ -10,11 +10,24 @@ class Block extends Component {
       selected: false
     };
   }
+  setTxToProve() {
+    this.props.showTxData(this.props.transaction);
+  }
   render() {
-    const { level, key, transaction } = this.props;
-    return <div className={`tree-block level-${level}-block`} />;
+    const { level, transaction, txData } = this.props;
+    let txBlock;
+    if (txData === transaction) {
+      console.log('i am the hash of the selected block', txData);
+      console.log(this.props);
+      txBlock = <div className={`tree-block level-${level}-block selected-block`} />;
+    } else {
+      txBlock = <div className={`tree-block level-${level}-block`} onClick={() => this.setTxToProve()} />;
+    }
+    return txBlock;
   }
 }
+
+// export default Block;
 
 const mapStateToProps = state => ({ txData: state.txData });
 const mapDispatchToProps = (dispatch: Function) => ({
@@ -23,4 +36,4 @@ const mapDispatchToProps = (dispatch: Function) => ({
   }
 });
 
-export default connect(mapDispatchToProps)(Block);
+export default connect(mapStateToProps, mapDispatchToProps)(Block);

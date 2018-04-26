@@ -1,7 +1,7 @@
 import { TX_DATA } from './actions';
 
 const DEFAULT_STATE = {
-  txData: {}
+  txData: ''
 };
 
 const setTxData = (state, action) => Object.assign({}, state, { txData: action.payload });
