@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
+import { Provider } from 'react-redux';
 import sha256 from 'js-sha256';
+import { store } from '../utils/store';
 import Level from './Level';
-import './App.css';
+import NetworkData from './NetworkData';
+import BlockData from './BlockData';
+import TxData from './TxData';
+import '../styles/App.css';
 
 class App extends Component {
   constructor(props) {
@@ -35,6 +40,8 @@ class App extends Component {
     this.getLastestHash()
       .then(that.getMerkleRootPlusTxs)
       .then(([root, txs]) => {
+        console.log(root);
+        that.setRoot(root);
         const isValid = that.castMerkleRoot(txs) === root;
         let tree = that.state.merkleTree;
         tree.pop();
@@ -46,6 +53,11 @@ class App extends Component {
         console.log(isValid);
         that.setUiTree(tree);
       });
+  }
+
+  setRoot(root) {
+    console.log('i am the root ----> ', root);
+    this.setState({ root: root });
   }
 
   getBTCSent() {
@@ -113,7 +125,6 @@ class App extends Component {
 
   hexify(bytes) {
     let hex = bytes.reduce((acc, bytes) => acc + bytes.toString(16).padStart(2, '0'), '');
-    // console.log(hex);
     return hex;
   }
 
@@ -178,31 +189,25 @@ class App extends Component {
   }
 
   render() {
-    const { uiTree, blockInfo, price, satoshiSent, txsCount } = this.state;
+    const { uiTree, blockInfo, price, satoshiSent, txsCount, root } = this.state;
     let numPrice = Number(price);
     let btcSent = satoshiSent * 0.00000001;
     let sendValue = numPrice * btcSent;
-    console.log(this.state);
     return (
-      <div className="app-box">
-        <header className="app-header">
-          <h3 className="app-title">We are having Merkle Fun</h3>
-        </header>
-        <div className="btc-summary-info-box">
-          <div className="summary-info">BTC Price: {Number(price)}</div>
-          <div className="summary-info">BTC Sent: {btcSent} </div>
-          <div className="summary-info">Send Value: ${Math.round(sendValue)} </div>
-          <div className="summary-info">TXS Count: {txsCount} </div>
+      <Provider store={store}>
+        <div className="app-box">
+          <header className="app-header">
+            <h3 className="app-title">We are having Merkle Fun</h3>
+          </header>
+          <div className="data-box">
+            <NetworkData price={price} btcSent={btcSent} sendValue={sendValue} txsCount={txsCount} />
+            <BlockData blockInfo={blockInfo} />
+            <TxData />
+          </div>
+          <h1> {root} </h1>
+          {uiTree.map((txs, index) => <Level key={index} index={index} txs={txs} />)}
         </div>
-        <div className="block-details-box">
-          <div className="block-details">Block Index: {blockInfo.block_index}</div>
-          <div className="block-details">Fee: {blockInfo.fee} satoshi</div>
-          <div className="block-details">Size: {blockInfo.size} </div>
-          <div className="block-details">Bits: {blockInfo.bits} </div>
-          <div className="block-details">Height: {blockInfo.height} </div>
-        </div>
-        {uiTree.map((txs, index) => <Level key={index} index={index} txs={txs} />)}
-      </div>
+      </Provider>
     );
   }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import Block from './Block';
-import './App.css';
+import '../styles/App.css';
 
 const Level = props => {
   const { index, txs } = props;
