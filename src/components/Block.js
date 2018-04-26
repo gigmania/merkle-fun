@@ -13,13 +13,19 @@ class Block extends Component {
   setTxToProve() {
     this.props.showTxData(this.props.transaction);
   }
+  merkleProofPath() {}
   render() {
     const { level, transaction, txData } = this.props;
     let txBlock;
     if (txData === transaction) {
       console.log('i am the hash of the selected block', txData);
       console.log(this.props);
-      txBlock = <div className={`tree-block level-${level}-block selected-block`} />;
+      txBlock = (
+        <div
+          className={`tree-block level-${level}-block selected-block`}
+          onClick={() => this.merkleProofPath(txData)}
+        />
+      );
     } else {
       txBlock = <div className={`tree-block level-${level}-block`} onClick={() => this.setTxToProve()} />;
     }

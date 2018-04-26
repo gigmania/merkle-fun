@@ -220,7 +220,7 @@ class Tree extends Component {
           <TxData />
         </div>
         <h1 onClick={() => this.pickRandomTx()}> {root} </h1>
-        {uiTree.map((txs, index) => <Level key={index} index={index} txs={txs} />)}
+        {uiTree.map((txs, index) => <Level key={index} index={index} txs={txs} merkleProof={this.merkleProof} />)}
       </div>
     );
   }
