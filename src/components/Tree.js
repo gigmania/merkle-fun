@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import sha256 from 'js-sha256';
 import { connect } from 'react-redux';
-import { txData } from '../utils/actionCreators';
+import { getLatestHash } from '../utils/actionCreators';
 
 import Level from './Level';
 import NetworkData from './NetworkData';
@@ -27,6 +27,9 @@ class Tree extends Component {
     this.hashPair = this.hashPair.bind(this);
     this.castMerkleRoot = this.castMerkleRoot.bind(this);
   }
+  componentWillMount() {
+    this.props.fetchLatestHash();
+  }
   componentDidMount() {
     let that = this;
     this.getSummaryData();
@@ -40,21 +43,21 @@ class Tree extends Component {
         });
       });
     });
-    this.getLastestHash()
-      .then(that.getMerkleRootPlusTxs)
-      .then(([root, txs]) => {
-        that.setRootAndTxs(root, txs);
-        const isValid = that.castMerkleRoot(txs) === root;
-        let tree = that.state.merkleTree;
-        tree.pop();
-        tree.unshift([root]);
-        // const tx = that.randomize(txs);
-        // const proof = that.merkleProof(txs, tx);
-        // console.log(proof);
-        // const isValid = that.merkleProofRoot(proof, tx) === root;
-        console.log(isValid);
-        that.setUiTree(tree);
-      });
+    // this.getLastestHash()
+    //   .then(that.getMerkleRootPlusTxs)
+    //   .then(([root, txs]) => {
+    //     that.setRootAndTxs(root, txs);
+    //     const isValid = that.castMerkleRoot(txs) === root;
+    //     let tree = that.state.merkleTree;
+    //     tree.pop();
+    //     tree.unshift([root]);
+    //     // const tx = that.randomize(txs);
+    //     // const proof = that.merkleProof(txs, tx);
+    //     // console.log(proof);
+    //     // const isValid = that.merkleProofRoot(proof, tx) === root;
+    //     console.log(isValid);
+    //     that.setUiTree(tree);
+    //   });
   }
 
   setRootAndTxs(root, txs) {
@@ -219,20 +222,16 @@ class Tree extends Component {
           <BlockData blockInfo={blockInfo} />
           <TxData />
         </div>
-        <h1 onClick={() => this.pickRandomTx()}> {root} </h1>
-        {uiTree.map((txs, index) => <Level key={index} index={index} txs={txs} merkleProof={this.merkleProof} />)}
       </div>
     );
   }
 }
 
-export default Tree;
+const mapStateToProps = state => ({ rootTxs: state.rootTxs });
+const mapDispatchToProps = (dispatch: Function) => ({
+  fetchLatestHash() {
+    dispatch(getLatestHash());
+  }
+});
 
-// const mapStateToProps = state => ({ txData: state.txData });
-// const mapDispatchToProps = (dispatch: Function) => ({
-//   showTxData(tx) {
-//     dispatch(txData(tx));
-//   }
-// });
-//
-// export default connect(mapStateToProps, mapDispatchToProps)(Tree);
+export default connect(mapStateToProps, mapDispatchToProps)(Tree);
