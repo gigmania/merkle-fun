@@ -17,7 +17,7 @@ class App extends Component {
       <Provider store={store}>
         <div className="app-box">
           <header className="app-header">
-            <h3 className="app-title">We are having Merkle Fun</h3>
+            <div className="app-title">MERKLATOR</div>
           </header>
           <Tree />
         </div>

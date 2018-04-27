@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Geo');
+
 .app-box {
   display: flex;
   display: -webkit-flex;
@@ -18,9 +20,16 @@
   display: flex;
   display: -webkit-flex;
   flex-basis: 100%;
-  justify-content: center;
   background-color: #2e2e2e;
   color: white;
+  font-family: 'Geo', sans-serif;
+  align-items: center;
+  font-size: 22px;
+  height: 30px;
+}
+
+.app-title {
+  margin-left: 2%;
 }
 
 .data-box {
@@ -115,11 +124,16 @@
 
 .selected-block {
   background-color: black !important;
-  border: 1px solid pink !important;
+  border: 1px solid yellow !important;
 }
 
 .path-block {
-  background-color: silver !important;
+  background-color: gainsboro !important;
+}
+
+.pair-block {
+  background-color: #606060 !important;
+  border: 1px solid orange !important;
 }
 
 .tree-block {
