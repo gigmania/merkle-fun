@@ -211,13 +211,17 @@ class Tree extends Component {
 
   render() {
     const { blockInfo, price, satoshiSent, txsCount } = this.state;
-    console.log(this.props);
-    const { merkleTree, rootTxs } = this.props;
+    const { merkleTree, rootTxs, merkleRootProof } = this.props;
     const root = rootTxs.root;
+    let proofElem;
     let numPrice = Number(price);
     let btcSent = satoshiSent * 0.00000001;
     let sendValue = numPrice * btcSent;
-    // console.log(this.state);
+    if (merkleRootProof === root) {
+      proofElem = <div className="merkle-root-proof proof-true"> merkle root proof: {merkleRootProof} </div>;
+    } else {
+      proofElem = <div className="merkle-root-proof proof-false"> merkle root proof: {merkleRootProof} </div>;
+    }
     return (
       <div className="tree-box">
         <div className="data-box">
@@ -225,14 +229,24 @@ class Tree extends Component {
           <BlockData blockInfo={blockInfo} />
           <TxData />
         </div>
-        <h1 onClick={() => this.pickRandomTx()}> {root} </h1>
+        <div className="merkle-root-box">
+          <div className="merkle-root" onClick={() => this.pickRandomTx()}>
+            Merkle Root: {root}
+          </div>
+          {proofElem}
+        </div>
         {merkleTree.map((txs, index) => <Level key={index} index={index} txs={txs} merkleProof={this.merkleProof} />)}
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ({ rootTxs: state.rootTxs, merkleTree: state.merkleTree, uiTree: state.uiTree });
+const mapStateToProps = state => ({
+  rootTxs: state.rootTxs,
+  merkleTree: state.merkleTree,
+  merkleRootProof: state.merkleRootProof
+});
+
 const mapDispatchToProps = (dispatch: Function) => ({
   fetchLatestHash() {
     dispatch(getLatestHash());

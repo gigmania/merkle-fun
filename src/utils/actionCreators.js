@@ -1,4 +1,4 @@
-import { TX_DATA, ROOT_TXS, MERKLE_TREE, UI_TREE, BLOCK_INFO } from './actions';
+import { TX_DATA, ROOT_TXS, MERKLE_TREE, MERKLE_ROOT_PROOF, BLOCK_INFO } from './actions';
 import sha256 from 'js-sha256';
 
 export function broadcastTxData(tx) {
@@ -13,8 +13,8 @@ export function broadcastMerkleTree(merkleTree) {
   return { type: MERKLE_TREE, payload: merkleTree };
 }
 
-export function broadcastUiTree(uiTree) {
-  return { type: UI_TREE, payload: uiTree };
+export function broadcastMerkleRootProof(rootProof) {
+  return { type: MERKLE_ROOT_PROOF, payload: rootProof };
 }
 
 // *************************************** /
@@ -77,15 +77,6 @@ export function setMerkleTree(tree) {
   };
 }
 
-export function setUITree(tree, root) {
-  let uiTree = tree.slice();
-  tree.pop();
-  tree.unshift([root]);
-  return dispatch => {
-    dispatch(broadcastUiTree(tree));
-  };
-}
-
 export function setRootTxs(root, txs) {
   let rootTxs = {
     root,
@@ -93,6 +84,12 @@ export function setRootTxs(root, txs) {
   };
   return dispatch => {
     dispatch(broadcastRootTxs(rootTxs));
+  };
+}
+
+export function setMerkleRootProof(rootProof) {
+  return dispatch => {
+    dispatch(broadcastMerkleRootProof(rootProof));
   };
 }
 
@@ -106,17 +103,9 @@ export function getLatestHash() {
       .then(([root, txs]) => {
         dispatch(setRootTxs(root, txs));
         let calcRoot = castMerkleRoot(txs);
+        dispatch(setMerkleRootProof(calcRoot));
         merkleTree.unshift([root]);
         dispatch(setMerkleTree(merkleTree));
       });
   };
 }
-
-// .then(([root, txs]) => {
-//   let rootTxs = {};
-//   rootTxs.root = root;
-//   rootTxs.txs = txs;
-//   dispatch(broadcastRootTxs(rootTxs));
-// });
-//
-// // dispatch(getMerkleRootPlusTxs(hash));
