@@ -121,7 +121,7 @@
 .tree-block {
   display: flex;
   display: -webkit-flex;
-  margin: 1px 0px;
+  margin: 1px 0.5px;
 }
 
 .tree-block:hover {

@@ -50,7 +50,13 @@ export function txData(tx) {
 export function getMerkleRootPlusTxs(latestHash) {
   return fetch(`https://blockchain.info/rawblock/${latestHash}?cors=true`)
     .then(result => result.json())
-    .then(data => [data.mrkl_root, data.tx.map(txs => txs.hash)]);
+    .then(data => [
+      data.mrkl_root,
+      data.tx.map(txs => {
+        //console.log(txs);
+        return txs.hash;
+      })
+    ]);
 }
 
 export function pairifyForTree(arr) {
@@ -105,6 +111,7 @@ export function getLatestHash() {
         let calcRoot = castMerkleRoot(txs);
         dispatch(setMerkleRootProof(calcRoot));
         merkleTree.unshift([root]);
+        //console.log(merkleTree);
         dispatch(setMerkleTree(merkleTree));
       });
   };

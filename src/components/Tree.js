@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import sha256 from 'js-sha256';
 import { connect } from 'react-redux';
-import { getLatestHash } from '../utils/actionCreators';
+import { getLatestHash, txData } from '../utils/actionCreators';
 
 import Level from './Level';
 import NetworkData from './NetworkData';
@@ -178,12 +178,12 @@ class Tree extends Component {
   }
 
   pickRandomTx() {
-    const txHash = this.randomize(this.state.txs);
+    const txHash = this.randomize(this.props.rootTxs.txs);
     console.log(typeof txHash);
     console.log(txHash);
-    const proof = this.merkleProof(this.state.txs, txHash);
-    console.log(proof);
-    //this.props.showTxData(txHash);
+    //const proof = this.merkleProof(this.state.txs, txHash);
+    //console.log(proof);
+    this.props.showTxData(txHash);
   }
 
   merkleProof(txs, tx, proof = []) {
@@ -211,7 +211,7 @@ class Tree extends Component {
 
   render() {
     const { blockInfo, price, satoshiSent, txsCount } = this.state;
-    const { merkleTree, rootTxs, merkleRootProof } = this.props;
+    const { merkleTree, rootTxs, merkleRootProof, txData } = this.props;
     const root = rootTxs.root;
     let proofElem;
     let numPrice = Number(price);
@@ -227,7 +227,7 @@ class Tree extends Component {
         <div className="data-box">
           <NetworkData price={price} btcSent={btcSent} sendValue={sendValue} txsCount={txsCount} />
           <BlockData blockInfo={blockInfo} />
-          <TxData />
+          <TxData txData={txData} />
         </div>
         <div className="merkle-root-box">
           <div className="merkle-root" onClick={() => this.pickRandomTx()}>
@@ -242,6 +242,7 @@ class Tree extends Component {
 }
 
 const mapStateToProps = state => ({
+  txData: state.txData,
   rootTxs: state.rootTxs,
   merkleTree: state.merkleTree,
   merkleRootProof: state.merkleRootProof
@@ -250,6 +251,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = (dispatch: Function) => ({
   fetchLatestHash() {
     dispatch(getLatestHash());
+  },
+  showTxData(tx) {
+    dispatch(txData(tx));
   }
 });
 
