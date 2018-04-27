@@ -1,4 +1,4 @@
-import { TX_DATA, ROOT_TXS, MERKLE_TREE, MERKLE_ROOT_PROOF, BLOCK_INFO } from './actions';
+import { TX_DATA, ROOT_TXS, MERKLE_TREE, MERKLE_ROOT_PROOF, BLOCK_INFO, PROOF_PATH } from './actions';
 import sha256 from 'js-sha256';
 
 export function broadcastTxData(tx) {
@@ -15,6 +15,10 @@ export function broadcastMerkleTree(merkleTree) {
 
 export function broadcastMerkleRootProof(rootProof) {
   return { type: MERKLE_ROOT_PROOF, payload: rootProof };
+}
+
+export function broadcastProofPath(proofPath) {
+  return { type: PROOF_PATH, payload: proofPath };
 }
 
 // *************************************** /
@@ -57,6 +61,10 @@ export function getMerkleRootPlusTxs(latestHash) {
         return txs.hash;
       })
     ]);
+}
+
+export function pairify(arr) {
+  return Array.from(Array(Math.ceil(arr.length / 2)), (_, i) => arr.slice(i * 2, i * 2 + 2));
 }
 
 export function pairifyForTree(arr) {
@@ -114,5 +122,59 @@ export function getLatestHash() {
         //console.log(merkleTree);
         dispatch(setMerkleTree(merkleTree));
       });
+  };
+}
+
+// proof of a single transaction
+
+export function merkleProof(txs, tx, proof = [], altProof = []) {
+  if (txs.length === 1) {
+    console.log(altProof);
+    console.log('i am the proof --->', proof);
+    return proof;
+  }
+  const tree = [];
+  pairify(txs).forEach(pair => {
+    const hash = hashPair(...pair);
+
+    if (pair.includes(tx)) {
+      let idx;
+      if (pair[0] === tx) {
+        idx = 1;
+        altProof.push([0, pair[0]]);
+      } else {
+        idx = 0;
+        altProof.push([1, pair[1]]);
+      }
+      // const idx = (pair[0] === tx) | 0;
+      proof.push([idx, pair[idx]]);
+      tx = hash;
+    }
+    tree.push(hash);
+  });
+  return merkleProof(tree, tx, proof, altProof);
+}
+
+export function setProofPath(path) {
+  return dispatch => {
+    dispatch(broadcastProofPath(path));
+  };
+}
+
+export function merkleProofRoot(proof, tx) {
+  return proof.reduce((root, [idx, tx]) => {
+    // console.log('i am the root ---> ', root);
+    // console.log('i am the idx ---> ', idx);
+    // console.log('i am the tx ---> ', tx);
+    return idx ? hashPair(root, tx) : hashPair(tx, root);
+  }, tx);
+}
+
+export function findProofPath(txs, tx) {
+  return dispatch => {
+    let proof = merkleProof(txs, tx);
+    console.log('i am the action creators proof ---> ', proof);
+    dispatch(setProofPath(proof));
+    let proofRoot = merkleProofRoot(proof, tx);
   };
 }

@@ -11,23 +11,35 @@ class Block extends Component {
     };
   }
   setTxToProve() {
-    this.props.showTxData(this.props.transaction);
+    //this.props.showTxData(this.props.transaction);
   }
-  merkleProofPath() {}
   render() {
     const { level, transaction, txData } = this.props;
+    let proofLength = this.props.proofPath.length;
+    let onPath = false;
+    if (proofLength > 0) {
+      for (let i = 0; i < proofLength; i++) {
+        if (this.props.proofPath[i][1] === transaction) {
+          // console.log('i am on the proofPath');
+          // console.log(this.props.proofPath[i]);
+          // console.log(i);
+          // console.log(this.props);
+          onPath = true;
+          break;
+        }
+      }
+    }
+    //console.log(this.props);
+
     let txBlock;
     if (txData === transaction) {
-      console.log('i am the hash of the selected block', txData);
-      console.log(this.props);
-      txBlock = (
-        <div
-          className={`tree-block level-${level}-block selected-block`}
-          onClick={() => this.merkleProofPath(txData)}
-        />
-      );
+      // console.log('i am the hash of the selected block', txData);
+      // console.log(this.props);
+      txBlock = <div className={`tree-block level-${level}-block selected-block`} />;
+    } else if (onPath === true) {
+      txBlock = <div className={`tree-block level-${level}-block path-block`} />;
     } else {
-      txBlock = <div className={`tree-block level-${level}-block`} onClick={() => this.setTxToProve()} />;
+      txBlock = <div className={`tree-block level-${level}-block`} />;
     }
     return txBlock;
   }
@@ -35,7 +47,7 @@ class Block extends Component {
 
 // export default Block;
 
-const mapStateToProps = state => ({ txData: state.txData });
+const mapStateToProps = state => ({ txData: state.txData, proofPath: state.proofPath });
 const mapDispatchToProps = (dispatch: Function) => ({
   showTxData(tx) {
     dispatch(txData(tx));

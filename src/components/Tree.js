@@ -25,7 +25,6 @@ class Tree extends Component {
     };
     this.merkleProofRoot = this.merkleProofRoot.bind(this);
     this.hashPair = this.hashPair.bind(this);
-    this.castMerkleRoot = this.castMerkleRoot.bind(this);
   }
   componentWillMount() {
     this.props.fetchLatestHash();
@@ -60,9 +59,13 @@ class Tree extends Component {
     //   });
   }
 
-  setRootAndTxs(root, txs) {
-    //console.log('i am the root ----> ', root);
-    this.setState({ root: root, txs: txs });
+  pickRandomTx() {
+    const txHash = this.randomize(this.props.rootTxs.txs);
+    // console.log(typeof txHash);
+    // console.log(txHash);
+    // const proof = this.merkleProof(this.props.rootTxs.txs, txHash);
+    // console.log(proof);
+    this.props.showTxData(txHash);
   }
 
   getBTCSent() {
@@ -116,10 +119,6 @@ class Tree extends Component {
     });
   }
 
-  setUiTree(tree) {
-    this.setState({ uiTree: tree });
-  }
-
   randomize(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
   }
@@ -133,10 +132,6 @@ class Tree extends Component {
     return hex;
   }
 
-  getLastestHash() {
-    return fetch('https://blockchain.info/q/latesthash?cors=true').then(result => result.text());
-  }
-
   pairifyForTree(arr) {
     let tree = this.state.merkleTree;
     tree.unshift(arr);
@@ -145,45 +140,13 @@ class Tree extends Component {
   }
 
   pairify(arr) {
-    let tree = this.state.merkleTree;
-    tree.unshift(arr);
-    this.setState({ merkleTree: tree });
     return Array.from(Array(Math.ceil(arr.length / 2)), (_, i) => arr.slice(i * 2, i * 2 + 2));
-  }
-
-  castMerkleRoot(txs) {
-    //console.log(txs);
-    if (txs.length === 1) {
-      return txs[0];
-    } else {
-      //return this.castMerkleRoot(this.pairify(txs).reduce((tree, pair) => [...tree, this.hashPair(...pair)], []));
-      return this.castMerkleRoot(
-        this.pairifyForTree(txs).reduce((tree, pair) => {
-          return [...tree, this.hashPair(...pair)];
-        }, [])
-      );
-    }
-  }
-
-  getMerkleRootPlusTxs(block) {
-    return fetch(`https://blockchain.info/rawblock/${block}?cors=true`)
-      .then(result => result.json())
-      .then(data => [data.mrkl_root, data.tx.map(txs => txs.hash)]);
   }
 
   hashPair(a, b = a) {
     const bytes = this.byteify(`${b}${a}`).reverse();
     const hashed = sha256.array(sha256.array(bytes));
     return this.hexify(hashed.reverse());
-  }
-
-  pickRandomTx() {
-    const txHash = this.randomize(this.props.rootTxs.txs);
-    console.log(typeof txHash);
-    console.log(txHash);
-    //const proof = this.merkleProof(this.state.txs, txHash);
-    //console.log(proof);
-    this.props.showTxData(txHash);
   }
 
   merkleProof(txs, tx, proof = []) {
@@ -213,6 +176,7 @@ class Tree extends Component {
     const { blockInfo, price, satoshiSent, txsCount } = this.state;
     const { merkleTree, rootTxs, merkleRootProof, txData } = this.props;
     const root = rootTxs.root;
+    const txs = rootTxs.txs;
     let proofElem;
     let numPrice = Number(price);
     let btcSent = satoshiSent * 0.00000001;
@@ -227,7 +191,7 @@ class Tree extends Component {
         <div className="data-box">
           <NetworkData price={price} btcSent={btcSent} sendValue={sendValue} txsCount={txsCount} />
           <BlockData blockInfo={blockInfo} />
-          <TxData txData={txData} />
+          <TxData txData={txData} txs={txs} />
         </div>
         <div className="merkle-root-box">
           <div className="merkle-root" onClick={() => this.pickRandomTx()}>

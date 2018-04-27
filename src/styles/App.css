@@ -118,6 +118,10 @@
   border: 1px solid pink !important;
 }
 
+.path-block {
+  background-color: silver !important;
+}
+
 .tree-block {
   display: flex;
   display: -webkit-flex;
