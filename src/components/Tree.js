@@ -28,7 +28,7 @@ class Tree extends Component {
     this.castMerkleRoot = this.castMerkleRoot.bind(this);
   }
   componentWillMount() {
-    //this.props.fetchLatestHash();
+    this.props.fetchLatestHash();
   }
   componentDidMount() {
     let that = this;
@@ -43,21 +43,21 @@ class Tree extends Component {
         });
       });
     });
-    this.getLastestHash()
-      .then(that.getMerkleRootPlusTxs)
-      .then(([root, txs]) => {
-        that.setRootAndTxs(root, txs);
-        const isValid = that.castMerkleRoot(txs) === root;
-        let tree = that.state.merkleTree;
-        tree.pop();
-        tree.unshift([root]);
-        // const tx = that.randomize(txs);
-        // const proof = that.merkleProof(txs, tx);
-        // console.log(proof);
-        // const isValid = that.merkleProofRoot(proof, tx) === root;
-        console.log(isValid);
-        that.setUiTree(tree);
-      });
+    // this.getLastestHash()
+    //   .then(that.getMerkleRootPlusTxs)
+    //   .then(([root, txs]) => {
+    //     that.setRootAndTxs(root, txs);
+    //     const isValid = that.castMerkleRoot(txs) === root;
+    //     let tree = that.state.merkleTree;
+    //     tree.pop();
+    //     tree.unshift([root]);
+    //     // const tx = that.randomize(txs);
+    //     // const proof = that.merkleProof(txs, tx);
+    //     // console.log(proof);
+    //     // const isValid = that.merkleProofRoot(proof, tx) === root;
+    //     console.log(isValid);
+    //     that.setUiTree(tree);
+    //   });
   }
 
   setRootAndTxs(root, txs) {
@@ -210,7 +210,10 @@ class Tree extends Component {
   }
 
   render() {
-    const { uiTree, blockInfo, price, satoshiSent, txsCount, root } = this.state;
+    const { blockInfo, price, satoshiSent, txsCount } = this.state;
+    console.log(this.props);
+    const { merkleTree, rootTxs } = this.props;
+    const root = rootTxs.root;
     let numPrice = Number(price);
     let btcSent = satoshiSent * 0.00000001;
     let sendValue = numPrice * btcSent;
@@ -223,13 +226,13 @@ class Tree extends Component {
           <TxData />
         </div>
         <h1 onClick={() => this.pickRandomTx()}> {root} </h1>
-        {uiTree.map((txs, index) => <Level key={index} index={index} txs={txs} merkleProof={this.merkleProof} />)}
+        {merkleTree.map((txs, index) => <Level key={index} index={index} txs={txs} merkleProof={this.merkleProof} />)}
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ({ rootTxs: state.rootTxs });
+const mapStateToProps = state => ({ rootTxs: state.rootTxs, merkleTree: state.merkleTree, uiTree: state.uiTree });
 const mapDispatchToProps = (dispatch: Function) => ({
   fetchLatestHash() {
     dispatch(getLatestHash());
