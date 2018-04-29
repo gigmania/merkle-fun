@@ -1,0 +1,120 @@
+.selected-block {
+  background-color: black !important;
+  border: 1px solid yellow !important;
+}
+
+.path-block {
+  background-color: gainsboro !important;
+}
+
+.pair-block {
+  background-color: yellow !important;
+  border: 1px solid black !important;
+}
+
+.tree-block {
+  display: flex;
+  display: -webkit-flex;
+  margin: 1px 0.5px;
+}
+
+.tree-block:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.level-0-block {
+  width: 40px;
+  height: 40px;
+  background-color: #e65100;
+  /* background-color: #0404b4; */
+  border: 1px solid #f3e5f5;
+}
+
+.level-1-block {
+  width: 35px;
+  height: 35px;
+  background-color: #ef6c00;
+  /* background-color: #045fb4; */
+  border: 1px solid #e1bee7;
+}
+
+.level-2-block {
+  width: 30px;
+  height: 30px;
+  background-color: #f57c00;
+  border: 1px solid #ce93d8;
+}
+
+.level-3-block {
+  width: 26px;
+  height: 26px;
+  background-color: #fb8c00;
+  border: 1px solid #ba68c8;
+}
+.level-4-block {
+  width: 22px;
+  height: 22px;
+  background-color: #ff9800;
+  border: 1px solid #ab47bc;
+}
+.level-5-block {
+  width: 18px;
+  height: 18px;
+  background-color: #ffa726;
+  border: 1px solid #9c27b0;
+}
+.level-6-block {
+  width: 16px;
+  height: 16px;
+  background-color: #ffb74d;
+  border: 1px solid #8e24aa;
+}
+.level-7-block {
+  width: 14px;
+  height: 14px;
+  background-color: #ffcc80;
+  border: 1px solid #7b1fa2;
+}
+.level-8-block {
+  width: 10px;
+  height: 10px;
+  background-color: #ffe0b2;
+  border: 1px solid #6a1b9a;
+}
+.level-9-block {
+  width: 8px;
+  height: 8px;
+  background-color: #fff3e0;
+  border: 1px solid #4a148c;
+}
+.level-10-block {
+  width: 6px;
+  height: 6px;
+  background-color: #fff8e1;
+  border: 1px solid #311b92;
+}
+.level-11-block {
+  width: 5px;
+  height: 5px;
+  background-color: #ffecb3;
+  border: 1px solid #4527a0;
+}
+.level-12-block {
+  width: 4px;
+  height: 4px;
+  background-color: #ffe082;
+  border: 1px solid #512da8;
+}
+.level-13-block {
+  width: 3px;
+  height: 3px;
+  background-color: #5f04b4;
+  border: 1px solid #9c27b0;
+}
+.level-14-block {
+  width: 2px;
+  height: 2px;
+  background-color: #3104b4;
+  border: 1px solid #9c27b0;
+}

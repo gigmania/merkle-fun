@@ -9,11 +9,15 @@ const TxData = props => {
     console.log('i feel the click ---> ', props);
     props.getProofPath(props.txs, props.txData);
   }
+  let txHashText = '';
+  if (props.txData.length > 0) {
+    txHashText = `tx hash: ${props.txData}`;
+  }
   console.log(props);
   return (
     <div className="tx-details-box">
       <div className="tx-details" onClick={() => makeProof()}>
-        tx hash: {props.txData}
+        {txHashText}
       </div>
     </div>
   );

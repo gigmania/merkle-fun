@@ -188,16 +188,14 @@ class Tree extends Component {
     }
     return (
       <div className="tree-box">
-        <div className="data-box">
-          <NetworkData price={price} btcSent={btcSent} sendValue={sendValue} txsCount={txsCount} />
-          <BlockData blockInfo={blockInfo} />
-          <TxData txData={txData} txs={txs} />
-        </div>
         <div className="merkle-root-box">
           <div className="merkle-root" onClick={() => this.pickRandomTx()}>
             Merkle Root: {root}
           </div>
           {proofElem}
+        </div>
+        <div className="data-box">
+          <TxData txData={txData} txs={txs} />
         </div>
         {merkleTree.map((txs, index) => <Level key={index} index={index} txs={txs} merkleProof={this.merkleProof} />)}
       </div>

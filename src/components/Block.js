@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { txData } from '../utils/actionCreators';
-import '../styles/App.css';
+
+import '../styles/Block.css';
 
 class Block extends Component {
   constructor(props) {
