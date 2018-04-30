@@ -120,9 +120,19 @@ class Tree extends Component {
       }
     } else {
       if (merkleRootProof === root) {
-        merkleProofBox = <div className="merkle-root-proof proof-true"> merkle root proof: {merkleRootProof} </div>;
+        merkleProofBox = (
+          <div className="merkle-root-proof">
+            <span className="block-text-title"> merkle root proof: </span>
+            <span className="proof-true"> {merkleRootProof} </span>
+          </div>
+        );
       } else {
-        merkleProofBox = <div className="merkle-root-proof proof-false"> merkle root proof: {merkleRootProof} </div>;
+        merkleProofBox = (
+          <div className="merkle-root-proof">
+            <span className="block-text-title"> merkle root proof: </span>
+            <span className="proof-false">{merkleRootProof} </span>
+          </div>
+        );
       }
       if (txData.length < 1) {
         proofBtns = (
@@ -136,7 +146,7 @@ class Tree extends Component {
       if (txData.length > 0) {
         txElem = (
           <div className="data-box">
-            <TxData txData={txData} txs={txs} merkleRootProof={merkleRootProof} />
+            <TxData txData={txData} txs={txs} root={root} />
           </div>
         );
       }

@@ -119,6 +119,10 @@
   padding-left: 3px;
 }
 
+.proof-text {
+  padding-left: 3px;
+}
+
 .block-text-title {
   color: #404040;
 }
@@ -149,6 +153,14 @@
   display: -webkit-flex;
   justify-content: center;
   width: 100%;
+}
+
+.tx-raw {
+  height: 28px;
+  font-size: 24px;
+}
+
+.tx-proof {
   height: 28px;
   font-size: 24px;
 }
