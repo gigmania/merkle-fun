@@ -12,6 +12,11 @@
   border: 1px solid black !important;
 }
 
+.tx-proof-block {
+  background-color: green !important;
+  border: 1px solid purple !important;
+}
+
 .tree-block {
   display: flex;
   display: -webkit-flex;

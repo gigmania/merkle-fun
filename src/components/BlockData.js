@@ -5,11 +5,19 @@ const BlockData = props => {
   const { blockInfo } = props;
   return (
     <div className="block-details-box">
-      <div className="block-details">Block Index: {blockInfo.block_index}</div>
-      <div className="block-details">Fee: {blockInfo.fee} satoshi</div>
-      <div className="block-details">Size: {blockInfo.size} </div>
-      <div className="block-details">Bits: {blockInfo.bits} </div>
-      <div className="block-details">Height: {blockInfo.height} </div>
+      <div className="block-details">
+        <span className="block-text-title"> Block Index:</span>
+        <span className="block-text"> {blockInfo.block_index}</span>
+      </div>
+      <div className="block-details">
+        <span className="block-text-title">Height:</span> <span className="block-text">{blockInfo.height}</span>
+      </div>
+      <div className="block-details">
+        <span className="block-text-title">Bits:</span> <span className="block-text">{blockInfo.bits}</span>
+      </div>
+      <div className="block-details">
+        <span className="block-text-title">Hash:</span> <span className="block-text">{blockInfo.hash}</span>
+      </div>
     </div>
   );
 };

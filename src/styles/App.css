@@ -48,7 +48,16 @@
   display: flex;
   display: -webkit-flex;
   justify-content: center;
-  /* font-family: 'Roboto', sans-serif; */
+  width: 100%;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  align-items: center;
+}
+
+.root-proof-box {
+  display: flex;
+  display: -webkit-flex;
+  justify-content: center;
   width: 100%;
   -webkit-flex-direction: column;
   flex-direction: column;
@@ -61,14 +70,19 @@
   margin-top: 12px;
 }
 
-.merkle-root:hover {
+.merkle-root-text {
+  color: #707070;
+}
+
+/* .merkle-root-text:hover {
   cursor: pointer;
   opacity: 0.7;
-}
+} */
 
 .merkle-root-proof {
   text-align: center;
-  font-size: 18px;
+  font-size: 28px;
+  height: 32px;
   margin-top: 3px;
 }
 
@@ -94,12 +108,19 @@
 .block-details-box {
   display: flex;
   display: -webkit-flex;
-  -webkit-flex-direction: column;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-  flex-basis: 30%;
+  flex-basis: 100%;
   margin-top: 15px;
+}
+
+.block-text {
+  color: #707070;
+  padding-left: 3px;
+}
+
+.block-text-title {
+  color: #404040;
 }
 
 .tx-details-box {
@@ -110,24 +131,82 @@
   justify-content: center;
   align-items: center;
   flex-basis: 94%;
-  margin-top: 15px;
 }
 
-.block-details,
+.block-details {
+  display: flex;
+  display: -webkit-flex;
+  justify-content: center;
+  align-items: center;
+  flex-basis: auto;
+  height: 25px;
+  margin: 0px 3px;
+  font-size: 20px;
+}
+
 .tx-details {
   display: flex;
   display: -webkit-flex;
-  margin: 0px 3px;
-}
-
-.tx-details {
   justify-content: center;
   width: 100%;
-  height: 25px;
-  font-size: 18px;
+  height: 28px;
+  font-size: 24px;
 }
 
-.tx-details:hover {
+.btn-blue {
+  padding: 12px 24px;
+  overflow: hidden;
+  border-width: 0;
+  outline: none;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  background-color: #1976d2;
+  color: white;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-blue:hover,
+.btn-blue:focus {
+  background-color: #1e88e5;
   cursor: pointer;
-  opacity: 0.7;
+}
+
+.btn-blue:active {
+  background-color: rgba(236, 240, 241, 0.3);
+  color: #1e88e5;
+}
+
+.prove-merkle-root {
+  margin-top: 15px;
+}
+
+.btn {
+  padding: 12px 24px;
+  overflow: hidden;
+  border-width: 0;
+  outline: none;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  background-color: #2ecc71;
+  color: #ecf0f1;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.btn:hover,
+.btn:focus {
+  background-color: #27ae60;
+  cursor: pointer;
+}
+
+.btn:active {
+  background-color: rgba(236, 240, 241, 0.3);
+  color: #2ecc71;
+}
+
+.prove-merkle-root {
+  margin-top: 15px;
+}
+
+.tx-root-proof {
+  margin-top: 10px;
 }

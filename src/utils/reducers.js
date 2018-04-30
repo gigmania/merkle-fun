@@ -1,10 +1,20 @@
-import { TX_DATA, ROOT_TXS, MERKLE_TREE, MERKLE_ROOT_PROOF, BLOCK_INFO, PROOF_PATH, PATH_PAIR } from './actions';
+import {
+  TX_DATA,
+  ROOT_TXS,
+  MERKLE_TREE,
+  MERKLE_ROOT_PROOF,
+  BLOCK_INFO,
+  PROOF_PATH,
+  PATH_PAIR,
+  TX_PROOF
+} from './actions';
 
 const DEFAULT_STATE = {
   txData: '',
   rootTxs: {},
   merkleTree: [],
   merkleRootProof: '',
+  txProof: '',
   blockInfo: {},
   proofPath: [],
   pathPair: []
@@ -17,6 +27,7 @@ const setMerkleRootProof = (state, action) => Object.assign({}, state, { merkleR
 const setBlockInfo = (state, action) => Object.assign({}, state, { blockInfo: action.payload });
 const setProofPath = (state, action) => Object.assign({}, state, { proofPath: action.payload });
 const setPathPair = (state, action) => Object.assign({}, state, { pathPair: action.payload });
+const setTxProof = (state, action) => Object.assign({}, state, { txProof: action.payload });
 
 const rootReducer = (state = DEFAULT_STATE, action) => {
   switch (action.type) {
@@ -34,6 +45,8 @@ const rootReducer = (state = DEFAULT_STATE, action) => {
       return setProofPath(state, action);
     case PATH_PAIR:
       return setPathPair(state, action);
+    case TX_PROOF:
+      return setTxProof(state, action);
     default:
       return state;
   }

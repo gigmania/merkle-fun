@@ -29,18 +29,11 @@ class Tree extends Component {
     this.props.getLatestBlock();
   }
   componentDidMount() {
-    let that = this;
     //this.getSummaryData();
-    // this.getLastestBlock().then(result => {
-    //   let parseObj = JSON.parse(result);
-    //   //console.log(parseObj);
-    //   that.getBlockData(parseObj.hash).then(deets => {
-    //     let blockInfo = JSON.parse(deets);
-    //     that.setState({
-    //       blockInfo: blockInfo
-    //     });
-    //   });
-    // });
+  }
+
+  proveMerkleRoot() {
+    this.props.fetchLatestHash();
   }
 
   pickRandomTx() {
@@ -108,15 +101,45 @@ class Tree extends Component {
     const { merkleTree, rootTxs, merkleRootProof, txData, blockInfo } = this.props;
     const root = blockInfo.mrkl_root;
     const txs = rootTxs.txs;
-    console.log(this.props);
-    let proofElem;
+    let merkleProofBox;
+    let proofBtns;
+    let txElem;
     let numPrice = Number(price);
     let btcSent = satoshiSent * 0.00000001;
     let sendValue = numPrice * btcSent;
-    if (merkleRootProof === root) {
-      proofElem = <div className="merkle-root-proof proof-true"> merkle root proof: {merkleRootProof} </div>;
+    if (merkleRootProof.length < 1) {
+      merkleProofBox = <div className="merkle-root-proof" />;
+      if (root && root.length > 0) {
+        proofBtns = (
+          <div className="prove-merkle-root">
+            <button className="prove-root btn-blue" type="button" onClick={() => this.proveMerkleRoot()}>
+              <span> PROVE MERKLE ROOT </span>
+            </button>
+          </div>
+        );
+      }
     } else {
-      proofElem = <div className="merkle-root-proof proof-false"> merkle root proof: {merkleRootProof} </div>;
+      if (merkleRootProof === root) {
+        merkleProofBox = <div className="merkle-root-proof proof-true"> merkle root proof: {merkleRootProof} </div>;
+      } else {
+        merkleProofBox = <div className="merkle-root-proof proof-false"> merkle root proof: {merkleRootProof} </div>;
+      }
+      if (txData.length < 1) {
+        proofBtns = (
+          <div className="prove-merkle-root">
+            <button className="select-random-tx btn" type="button" onClick={() => this.pickRandomTx()}>
+              <span> SELECT RANDOM TX </span>
+            </button>
+          </div>
+        );
+      }
+      if (txData.length > 0) {
+        txElem = (
+          <div className="data-box">
+            <TxData txData={txData} txs={txs} merkleRootProof={merkleRootProof} />
+          </div>
+        );
+      }
     }
     return (
       <div className="tree-box">
@@ -124,14 +147,16 @@ class Tree extends Component {
           <BlockData blockInfo={blockInfo} txs={txs} />
         </div>
         <div className="merkle-root-box">
-          <div className="merkle-root" onClick={() => this.pickRandomTx()}>
-            Merkle Root: {root}
+          <div className="merkle-root">
+            <span className="block-text-title"> Merkle Root: </span>
+            <span className="merkle-root-text">{root}</span>
           </div>
-          {proofElem}
+          <div className="root-proof-box">
+            {merkleProofBox}
+            {proofBtns}
+          </div>
         </div>
-        <div className="data-box">
-          <TxData txData={txData} txs={txs} />
-        </div>
+        {txElem}
         {merkleTree.map((txs, index) => <Level key={index} index={index} txs={txs} merkleProof={this.merkleProof} />)}
       </div>
     );

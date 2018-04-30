@@ -1,4 +1,14 @@
-import { TX_DATA, ROOT_TXS, MERKLE_TREE, MERKLE_ROOT_PROOF, BLOCK_INFO, PROOF_PATH, PATH_PAIR } from './actions';
+import {
+  TX_DATA,
+  ROOT_TXS,
+  MERKLE_TREE,
+  MERKLE_ROOT_PROOF,
+  BLOCK_INFO,
+  PROOF_PATH,
+  PATH_PAIR,
+  TX_PROOF
+} from './actions';
+
 import sha256 from 'js-sha256';
 
 export function broadcastTxData(tx) {
@@ -29,6 +39,10 @@ export function broadcastBlockInfo(blockInfo) {
   return { type: BLOCK_INFO, payload: blockInfo };
 }
 
+export function broadcastTxProof(txProof) {
+  return { type: TX_PROOF, payload: txProof };
+}
+
 // *************************************** /
 
 let merkleTree = [];
@@ -55,7 +69,6 @@ export function hashPair(a, b = a) {
 
 export function txData(tx) {
   return dispatch => {
-    console.log('i am the tx in the action creators --->', tx);
     dispatch(broadcastTxData(tx));
   };
 }
@@ -84,7 +97,6 @@ export function castMerkleRoot(txs) {
   if (txs.length === 1) {
     return txs[0];
   } else {
-    //return this.castMerkleRoot(this.pairify(txs).reduce((tree, pair) => [...tree, this.hashPair(...pair)], []));
     return castMerkleRoot(
       pairifyForTree(txs).reduce((tree, pair) => {
         return [...tree, hashPair(...pair)];
@@ -116,7 +128,6 @@ export function setMerkleRootProof(rootProof) {
 }
 
 export function getLatestHash() {
-  console.log('in get latest hash');
   merkleTree = [];
   return dispatch => {
     fetch('https://blockchain.info/q/latesthash?cors=true')
@@ -137,8 +148,6 @@ export function getLatestHash() {
 
 export function merkleProof(txs, tx, proof = [], altProof = []) {
   if (txs.length === 1) {
-    console.log(altProof);
-    console.log('i am the proof --->', proof);
     proofPairPath = altProof.slice();
     return proof;
   }
@@ -155,7 +164,6 @@ export function merkleProof(txs, tx, proof = [], altProof = []) {
         idx = 0;
         altProof.push([1, pair[1]]);
       }
-      // const idx = (pair[0] === tx) | 0;
       proof.push([idx, pair[idx]]);
       tx = hash;
     }
@@ -189,6 +197,7 @@ export function findProofPath(txs, tx) {
     dispatch(setProofPath(proof));
     dispatch(setPathPair(proofPairPath));
     let proofRoot = merkleProofRoot(proof, tx);
+    dispatch(broadcastTxProof(proofRoot));
   };
 }
 

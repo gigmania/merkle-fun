@@ -1,27 +1,40 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { findProofPath } from '../utils/actionCreators';
+import { findProofPath, showTxData } from '../utils/actionCreators';
 
 import '../styles/App.css';
 
-const TxData = props => {
-  function makeProof() {
-    console.log('i feel the click ---> ', props);
-    props.getProofPath(props.txs, props.txData);
+class TxData extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      randomTx: ''
+    };
   }
-  let txHashText = '';
-  if (props.txData.length > 0) {
-    txHashText = `tx hash: ${props.txData}`;
+  makeProof() {
+    this.props.getProofPath(this.props.txs, this.props.txData);
   }
-  console.log(props);
-  return (
-    <div className="tx-details-box">
-      <div className="tx-details" onClick={() => makeProof()}>
-        {txHashText}
+  render() {
+    let txProofBtn;
+    if (this.props.proofPath && this.props.proofPath.length < 1) {
+      txProofBtn = (
+        <div className="tx-root-proof">
+          <button className="tx-proof btn-blue" type="button" onClick={() => this.makeProof()}>
+            <span> PROVE TX IN ROOT </span>
+          </button>
+        </div>
+      );
+    }
+    return (
+      <div className="tx-details-box">
+        <div className="tx-details">
+          <span className="block-text-title">tx hash:</span> <span className="block-text">{this.props.txData} </span>
+        </div>
+        {txProofBtn}
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 const mapStateToProps = state => ({ proofPath: state.proofPath });
 const mapDispatchToProps = (dispatch: Function) => ({
