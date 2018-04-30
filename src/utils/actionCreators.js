@@ -25,6 +25,10 @@ export function broadcastPathPair(pathPair) {
   return { type: PATH_PAIR, payload: pathPair };
 }
 
+export function broadcastBlockInfo(blockInfo) {
+  return { type: BLOCK_INFO, payload: blockInfo };
+}
+
 // *************************************** /
 
 let merkleTree = [];
@@ -62,7 +66,6 @@ export function getMerkleRootPlusTxs(latestHash) {
     .then(data => [
       data.mrkl_root,
       data.tx.map(txs => {
-        //console.log(txs);
         return txs.hash;
       })
     ]);
@@ -186,5 +189,29 @@ export function findProofPath(txs, tx) {
     dispatch(setProofPath(proof));
     dispatch(setPathPair(proofPairPath));
     let proofRoot = merkleProofRoot(proof, tx);
+  };
+}
+
+// Block Info
+
+export function fetchBlockData(blockHash) {
+  return dispatch => {
+    fetch(`https://blockchain.info/rawblock/${blockHash}?cors=true`)
+      .then(result => result.text())
+      .then(deets => {
+        let blockInfo = JSON.parse(deets);
+        dispatch(broadcastBlockInfo(blockInfo));
+      });
+  };
+}
+
+export function fetchLatestBlock() {
+  return dispatch => {
+    fetch('https://blockchain.info/latestblock?cors=true')
+      .then(result => result.text())
+      .then(blockData => {
+        let parseBlock = JSON.parse(blockData);
+        dispatch(fetchBlockData(parseBlock.hash));
+      });
   };
 }
