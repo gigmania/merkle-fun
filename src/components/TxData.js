@@ -16,7 +16,7 @@ class TxData extends Component {
       txProofBtn = (
         <div className="tx-root-proof">
           <button className="tx-proof-btn btn-blue" type="button" onClick={() => this.makeProof()}>
-            <span> PROVE TX IN ROOT </span>
+            <span> PROVE TX IN BLOCK </span>
           </button>
         </div>
       );
