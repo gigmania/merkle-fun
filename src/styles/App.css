@@ -110,8 +110,11 @@
   display: -webkit-flex;
   justify-content: space-around;
   align-items: center;
-  flex-basis: 100%;
+  flex-basis: 98%;
   margin-top: 15px;
+  background-color: #eceff1;
+  padding: 15px 0px;
+  border-radius: 5px;
 }
 
 .block-text {
@@ -152,12 +155,13 @@
   display: flex;
   display: -webkit-flex;
   justify-content: center;
-  width: 100%;
 }
 
 .tx-raw {
   height: 28px;
   font-size: 24px;
+  border-top: 2px dashed #404040;
+  padding: 15px 125px 0px 125px;
 }
 
 .tx-proof {
