@@ -1,5 +1,5 @@
 {
-  "name": "merkle-fun",
+  "name": "merklator",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

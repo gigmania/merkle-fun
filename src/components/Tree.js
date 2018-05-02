@@ -4,9 +4,11 @@ import { connect } from 'react-redux';
 import { getLatestHash, txData, fetchLatestBlock } from '../utils/actionCreators';
 
 import Level from './Level';
-import NetworkData from './NetworkData';
 import BlockData from './BlockData';
 import TxData from './TxData';
+import Spinner from './Spinner';
+
+import loading from '../img/loading.png';
 
 import '../styles/App.css';
 
@@ -14,14 +16,10 @@ class Tree extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      root: '',
-      merkleTree: [],
-      uiTree: [],
-      blockInfo: {},
+      treeLoading: false,
       satoshiSent: '',
       txsCount: '',
-      price: '',
-      txs: []
+      price: ''
     };
   }
   componentWillMount() {
@@ -33,6 +31,9 @@ class Tree extends Component {
   }
 
   proveMerkleRoot() {
+    this.setState({
+      treeLoading: true
+    });
     this.props.fetchLatestHash();
   }
 
@@ -110,13 +111,18 @@ class Tree extends Component {
     if (merkleRootProof.length < 1) {
       merkleProofBox = <div className="merkle-root-proof" />;
       if (root && root.length > 0) {
-        proofBtns = (
-          <div className="prove-merkle-root">
-            <button className="prove-root btn-blue" type="button" onClick={() => this.proveMerkleRoot()}>
-              <span> PROVE MERKLE ROOT </span>
-            </button>
-          </div>
-        );
+        if (this.state.treeLoading === false) {
+          proofBtns = (
+            <div className="prove-merkle-root">
+              <button className="prove-root btn-blue" type="button" onClick={() => this.proveMerkleRoot()}>
+                <span> PROVE MERKLE ROOT </span>
+              </button>
+            </div>
+          );
+        }
+        if (this.state.treeLoading === true) {
+          proofBtns = <Spinner />;
+        }
       }
     } else {
       if (merkleRootProof === root) {

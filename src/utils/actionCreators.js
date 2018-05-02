@@ -138,7 +138,6 @@ export function getLatestHash() {
         let calcRoot = castMerkleRoot(txs);
         dispatch(setMerkleRootProof(calcRoot));
         merkleTree.unshift([root]);
-        //console.log(merkleTree);
         dispatch(setMerkleTree(merkleTree));
       });
   };
