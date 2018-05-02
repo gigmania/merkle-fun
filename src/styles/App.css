@@ -39,9 +39,31 @@
   display: -webkit-flex;
   width: 100%;
   justify-content: center;
-  /* font-family: 'Roboto', sans-serif; */
   font-size: 12px;
   align-items: center;
+}
+
+.spinner-box {
+  display: flex;
+  display: -webkit-flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 36px;
+  color: #505050;
+}
+
+.top-50 {
+  margin-top: 50px;
+}
+.spinner-text {
+  margin-bottom: 30px;
+}
+
+.txs-length {
+  color: #03a9f4;
 }
 
 .merkle-root-box {

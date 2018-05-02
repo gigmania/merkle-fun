@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import sha256 from 'js-sha256';
 import { connect } from 'react-redux';
 import { getLatestHash, txData, fetchLatestBlock } from '../utils/actionCreators';
 
@@ -7,8 +6,6 @@ import Level from './Level';
 import BlockData from './BlockData';
 import TxData from './TxData';
 import Spinner from './Spinner';
-
-import loading from '../img/loading.png';
 
 import '../styles/App.css';
 
@@ -98,16 +95,38 @@ class Tree extends Component {
   }
 
   render() {
-    const { price, satoshiSent, txsCount } = this.state;
+    // const { price, satoshiSent, txsCount } = this.state;
     const { merkleTree, rootTxs, merkleRootProof, txData, blockInfo } = this.props;
     const root = blockInfo.mrkl_root;
     const txs = rootTxs.txs;
+    let blockInfoBox;
+    let mrklRootElem;
     let merkleProofBox;
     let proofBtns;
     let txElem;
-    let numPrice = Number(price);
-    let btcSent = satoshiSent * 0.00000001;
-    let sendValue = numPrice * btcSent;
+    // let numPrice = Number(price);
+    // let btcSent = satoshiSent * 0.00000001;
+    // let sendValue = numPrice * btcSent;
+    if (root != null) {
+      blockInfoBox = (
+        <div className="data-box">
+          <BlockData blockInfo={blockInfo} txs={txs} />
+        </div>
+      );
+      mrklRootElem = (
+        <div className="merkle-root">
+          <span className="block-text-title"> Merkle Root: </span>
+          <span className="merkle-root-text">{root}</span>
+        </div>
+      );
+    } else {
+      blockInfoBox = (
+        <div className="spinner-box top-50">
+          <div className="spinner-text">FETCHING LATEST BITCOIN BLOCK</div>
+          <Spinner />
+        </div>
+      );
+    }
     if (merkleRootProof.length < 1) {
       merkleProofBox = <div className="merkle-root-proof" />;
       if (root && root.length > 0) {
@@ -121,7 +140,14 @@ class Tree extends Component {
           );
         }
         if (this.state.treeLoading === true) {
-          proofBtns = <Spinner />;
+          proofBtns = (
+            <div className="spinner-box">
+              <div className="spinner-text">
+                BUILDING MERKLE TREE FROM <span className="txs-length"> {blockInfo.tx.length} </span>TXS HASHES
+              </div>
+              <Spinner />
+            </div>
+          );
         }
       }
     } else {
@@ -159,14 +185,9 @@ class Tree extends Component {
     }
     return (
       <div className="tree-box">
-        <div className="data-box">
-          <BlockData blockInfo={blockInfo} txs={txs} />
-        </div>
+        {blockInfoBox}
         <div className="merkle-root-box">
-          <div className="merkle-root">
-            <span className="block-text-title"> Merkle Root: </span>
-            <span className="merkle-root-text">{root}</span>
-          </div>
+          {mrklRootElem}
           <div className="root-proof-box">
             {merkleProofBox}
             {proofBtns}
