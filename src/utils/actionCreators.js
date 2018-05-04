@@ -127,19 +127,17 @@ export function setMerkleRootProof(rootProof) {
   };
 }
 
-export function getLatestHash() {
+export function getLatestHash(root, txs) {
   merkleTree = [];
   return dispatch => {
-    fetch('https://blockchain.info/q/latesthash?cors=true')
-      .then(result => result.text())
-      .then(getMerkleRootPlusTxs)
-      .then(([root, txs]) => {
-        dispatch(setRootTxs(root, txs));
-        let calcRoot = castMerkleRoot(txs);
-        dispatch(setMerkleRootProof(calcRoot));
-        merkleTree.unshift([root]);
-        dispatch(setMerkleTree(merkleTree));
-      });
+    let hashArray = txs.map(tx => {
+      return tx.hash;
+    });
+    dispatch(setRootTxs(root, hashArray));
+    let calcRoot = castMerkleRoot(hashArray);
+    dispatch(setMerkleRootProof(calcRoot));
+    merkleTree.unshift([root]);
+    dispatch(setMerkleTree(merkleTree));
   };
 }
 

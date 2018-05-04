@@ -10,15 +10,13 @@ import Spinner from './Spinner';
 import '../styles/App.css';
 
 class Tree extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      treeLoading: false,
-      satoshiSent: '',
-      txsCount: '',
-      price: ''
-    };
-  }
+  state = {
+    treeLoading: false,
+    satoshiSent: '',
+    txsCount: '',
+    price: ''
+  };
+
   componentWillMount() {
     //this.props.fetchLatestHash();
     this.props.getLatestBlock();
@@ -27,11 +25,14 @@ class Tree extends Component {
     //this.getSummaryData();
   }
 
-  proveMerkleRoot() {
-    this.setState({
-      treeLoading: true
+  proveMerkleRoot(root, txs) {
+    console.log(txs);
+    this.setState((state, props) => {
+      return {
+        treeLoading: !state.treeLoading
+      };
     });
-    this.props.fetchLatestHash();
+    this.props.fetchLatestHash(root, txs);
   }
 
   pickRandomTx() {
@@ -133,7 +134,11 @@ class Tree extends Component {
         if (this.state.treeLoading === false) {
           proofBtns = (
             <div className="prove-merkle-root">
-              <button className="prove-root btn-blue" type="button" onClick={() => this.proveMerkleRoot()}>
+              <button
+                className="prove-root btn-blue"
+                type="button"
+                onClick={() => this.proveMerkleRoot(root, blockInfo.tx)}
+              >
                 <span> PROVE MERKLE ROOT </span>
               </button>
             </div>
@@ -209,8 +214,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({
-  fetchLatestHash() {
-    dispatch(getLatestHash());
+  fetchLatestHash(root, txs) {
+    dispatch(getLatestHash(root, txs));
   },
   showTxData(tx) {
     dispatch(txData(tx));
