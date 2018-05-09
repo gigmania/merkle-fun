@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getLatestHash, txData, fetchLatestBlock } from '../utils/actionCreators';
@@ -9,7 +10,35 @@ import Spinner from './Spinner';
 
 import '../styles/App.css';
 
-class Tree extends Component {
+type State = {
+  treeLoading: boolean,
+  satoshiSent: string,
+  txsCount: string,
+  price: string
+}
+
+type Props = {
+  fetchLatestHash: Function,
+  showTxData: Function,
+  getLatestBlock: Function,
+  txData: string,
+  rootTxs: {
+    root: string,
+    txs: (?string)[]
+  },
+  merkleTree: (?string)[][],
+  merkleRootProof: string,
+  blockInfo: {
+    block_index: number,
+    height: number,
+    bits: number,
+    hash: string,
+    tx: any,
+    mrkl_root: string
+  }
+}
+
+class Tree extends Component<Props, State> {
   state = {
     treeLoading: false,
     satoshiSent: '',
@@ -198,7 +227,7 @@ class Tree extends Component {
           </div>
         </div>
         {txElem}
-        {merkleTree.map((trxs, index) => <Level key={index} index={index} txs={trxs} merkleProof={this.merkleProof} />)}
+        {merkleTree.map((trxs, index) => <Level key={index} index={index} txs={trxs} merkleProof={merkleRootProof} />)}
       </div>
     );
   }

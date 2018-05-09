@@ -13,10 +13,10 @@ type Props = {
 
 
 const Level = (props: Props) => {
-  const { index, txs } = props;
+  const { index, txs, merkleProof } = props;
   return (
     <div className={`tree-level level-${index}`}>
-      {txs.map((tx: string, i) => <Block key={i} level={index} transaction={tx} merkleProof={props.merkleProof} />)}
+      {txs.map((tx, i) => <Block key={i} level={index} transaction={tx} merkleProof={merkleProof} />)}
     </div>
   );
 };
