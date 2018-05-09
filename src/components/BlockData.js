@@ -1,6 +1,8 @@
 // @flow
 
 import React from 'react';
+import Spinner from './Spinner';
+
 import '../styles/App.css';
 
 type Props = {
@@ -15,23 +17,36 @@ type Props = {
 
 const BlockData = (props: Props) => {
   const { blockInfo } = props;
-  return (
-    <div className="block-details-box">
-      <div className="block-details">
-        <span className="block-text-title"> Block Index:</span>
-        <span className="block-text"> {blockInfo.block_index}</span>
+  let blockBox;
+  if (blockInfo.mrkl_root != null) {
+    blockBox = (
+      <div className="data-box">
+        <div className="block-details-box">
+          <div className="block-details">
+            <span className="block-text-title"> Block Index:</span>
+            <span className="block-text"> {blockInfo.block_index}</span>
+          </div>
+          <div className="block-details">
+            <span className="block-text-title">Height:</span> <span className="block-text">{blockInfo.height}</span>
+          </div>
+          <div className="block-details">
+            <span className="block-text-title">Bits:</span> <span className="block-text">{blockInfo.bits}</span>
+          </div>
+          <div className="block-details">
+            <span className="block-text-title">Hash:</span> <span className="block-text">{blockInfo.hash}</span>
+          </div>
+        </div>
       </div>
-      <div className="block-details">
-        <span className="block-text-title">Height:</span> <span className="block-text">{blockInfo.height}</span>
+    )
+  } else {
+    blockBox = (
+      <div className="spinner-box top-50">
+        <div className="spinner-text">FETCHING LATEST BITCOIN BLOCK</div>
+        <Spinner />
       </div>
-      <div className="block-details">
-        <span className="block-text-title">Bits:</span> <span className="block-text">{blockInfo.bits}</span>
-      </div>
-      <div className="block-details">
-        <span className="block-text-title">Hash:</span> <span className="block-text">{blockInfo.hash}</span>
-      </div>
-    </div>
-  );
+    )
+  }
+  return blockBox
 };
 
 export default BlockData;

@@ -7,6 +7,9 @@ import Level from './Level';
 import BlockData from './BlockData';
 import TxData from './TxData';
 import Spinner from './Spinner';
+import MerkleRoot from './MerkleRoot';
+import MerkleProof from './MerkleProof';
+
 
 import '../styles/App.css';
 
@@ -47,11 +50,7 @@ class Tree extends Component<Props, State> {
   };
 
   componentWillMount() {
-    //this.props.fetchLatestHash();
     this.props.getLatestBlock();
-  }
-  componentDidMount() {
-    //this.getSummaryData();
   }
 
   proveMerkleRoot(root, txs) {
@@ -68,63 +67,11 @@ class Tree extends Component<Props, State> {
     this.props.showTxData(txHash);
   }
 
-  getBTCSent() {
-    return fetch('https://blockchain.info/q/24hrbtcsent?cors=true').then(result => {
-      return result.text();
-    });
-  }
-
-  getTransCount() {
-    return fetch('https://blockchain.info/q/24hrtransactioncount?cors=true').then(result => {
-      return result.text();
-    });
-  }
-
-  getPrice() {
-    return fetch('https://blockchain.info/q/24hrprice?cors=true').then(result => {
-      return result.text();
-    });
-  }
-
-  getSummaryData() {
-    let satoshi;
-    let txsCount;
-    let that = this;
-    this.getBTCSent()
-      .then(result => {
-        satoshi = result;
-      })
-      .then(this.getTransCount)
-      .then(count => {
-        txsCount = count;
-      })
-      .then(this.getPrice)
-      .then(price => {
-        that.setState({
-          satoshiSent: satoshi,
-          txsCount: txsCount,
-          price: price
-        });
-      });
-  }
-
-  getLastestBlock() {
-    return fetch('https://blockchain.info/latestblock?cors=true').then(result => {
-      return result.text();
-    });
-  }
-  getBlockData(hash) {
-    return fetch(`https://blockchain.info/rawblock/${hash}?cors=true`).then(result => {
-      return result.text();
-    });
-  }
-
   randomize(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
   }
 
   render() {
-    // const { price, satoshiSent, txsCount } = this.state;
     const { merkleTree, rootTxs, merkleRootProof, txData, blockInfo } = this.props;
     const root = blockInfo.mrkl_root;
     const txs = rootTxs.txs;
@@ -133,28 +80,8 @@ class Tree extends Component<Props, State> {
     let merkleProofBox;
     let proofBtns;
     let txElem;
-    // let numPrice = Number(price);
-    // let btcSent = satoshiSent * 0.00000001;
-    // let sendValue = numPrice * btcSent;
     if (root != null) {
-      blockInfoBox = (
-        <div className="data-box">
-          <BlockData blockInfo={blockInfo} txs={txs} />
-        </div>
-      );
-      mrklRootElem = (
-        <div className="merkle-root">
-          <span className="block-text-title"> Merkle Root: </span>
-          <span className="merkle-root-text">{root}</span>
-        </div>
-      );
-    } else {
-      blockInfoBox = (
-        <div className="spinner-box top-50">
-          <div className="spinner-text">FETCHING LATEST BITCOIN BLOCK</div>
-          <Spinner />
-        </div>
-      );
+      mrklRootElem = <MerkleRoot root={root} />;
     }
     if (merkleRootProof.length < 1) {
       merkleProofBox = <div className="merkle-root-proof" />;
@@ -218,11 +145,11 @@ class Tree extends Component<Props, State> {
     }
     return (
       <div className="tree-box">
-        {blockInfoBox}
+        <BlockData blockInfo={blockInfo} txs={txs} />
         <div className="merkle-root-box">
           {mrklRootElem}
           <div className="root-proof-box">
-            {merkleProofBox}
+            <MerkleProof merkleRootProof = {merkleRootProof} />
             {proofBtns}
           </div>
         </div>
