@@ -1,10 +1,21 @@
+// @flow
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { findProofPath } from '../utils/actionCreators';
 
 import '../styles/App.css';
 
-class TxData extends Component {
+type Props = {
+  txProof: string,
+  root: string,
+  txs: (?string)[],
+  proofPath:  (?string)[][],
+  txData: string,
+  getProofPath: Function
+};
+
+class TxData extends Component<Props> {
   makeProof() {
     this.props.getProofPath(this.props.txs, this.props.txData);
   }

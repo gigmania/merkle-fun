@@ -1,10 +1,26 @@
+// @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { txData } from '../utils/actionCreators';
 
 import '../styles/Block.css';
 
-class Block extends Component {
+type Props = {
+  level: number,
+  transaction: string,
+  txData: string,
+  merkleProof: string,
+  proofPath: (?string)[][],
+  pathPair: (?string)[][],
+  txProof: string,
+  showTxData: Function
+}
+
+type State = {
+  selected: boolean
+}
+
+class Block extends Component<Props, State> {
   constructor(props) {
     super(props);
     this.state = {

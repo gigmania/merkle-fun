@@ -26,7 +26,6 @@ class Tree extends Component {
   }
 
   proveMerkleRoot(root, txs) {
-    console.log(txs);
     this.setState((state, props) => {
       return {
         treeLoading: !state.treeLoading
@@ -199,7 +198,7 @@ class Tree extends Component {
           </div>
         </div>
         {txElem}
-        {merkleTree.map((txs, index) => <Level key={index} index={index} txs={txs} merkleProof={this.merkleProof} />)}
+        {merkleTree.map((trxs, index) => <Level key={index} index={index} txs={trxs} merkleProof={this.merkleProof} />)}
       </div>
     );
   }
