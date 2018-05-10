@@ -9,7 +9,7 @@ import TxData from './TxData';
 import Spinner from './Spinner';
 import MerkleRoot from './MerkleRoot';
 import MerkleProof from './MerkleProof';
-
+import ProofButtons from './ProofButtons';
 
 import '../styles/App.css';
 
@@ -18,7 +18,7 @@ type State = {
   satoshiSent: string,
   txsCount: string,
   price: string
-}
+};
 
 type Props = {
   fetchLatestHash: Function,
@@ -39,7 +39,7 @@ type Props = {
     tx: any,
     mrkl_root: string
   }
-}
+};
 
 class Tree extends Component<Props, State> {
   state = {
@@ -77,14 +77,12 @@ class Tree extends Component<Props, State> {
     const txs = rootTxs.txs;
     let blockInfoBox;
     let mrklRootElem;
-    let merkleProofBox;
     let proofBtns;
     let txElem;
     if (root != null) {
       mrklRootElem = <MerkleRoot root={root} />;
     }
     if (merkleRootProof.length < 1) {
-      merkleProofBox = <div className="merkle-root-proof" />;
       if (root && root.length > 0) {
         if (this.state.treeLoading === false) {
           proofBtns = (
@@ -111,21 +109,6 @@ class Tree extends Component<Props, State> {
         }
       }
     } else {
-      if (merkleRootProof === root) {
-        merkleProofBox = (
-          <div className="merkle-root-proof">
-            <span className="block-text-title"> merkle root proof: </span>
-            <span className="proof-true"> {merkleRootProof} </span>
-          </div>
-        );
-      } else {
-        merkleProofBox = (
-          <div className="merkle-root-proof">
-            <span className="block-text-title"> merkle root proof: </span>
-            <span className="proof-false">{merkleRootProof} </span>
-          </div>
-        );
-      }
       if (txData.length < 1) {
         proofBtns = (
           <div className="prove-merkle-root">
@@ -149,8 +132,8 @@ class Tree extends Component<Props, State> {
         <div className="merkle-root-box">
           {mrklRootElem}
           <div className="root-proof-box">
-            <MerkleProof merkleRootProof = {merkleRootProof} />
-            {proofBtns}
+            <MerkleProof merkleRootProof={merkleRootProof} root={root} />
+            <ProofButtons blockInfo={blockInfo} merkleRootProof={merkleRootProof} />
           </div>
         </div>
         {txElem}
