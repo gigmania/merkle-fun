@@ -1,42 +1,44 @@
+import sha256 from 'js-sha256';
+
+import { store } from './store';
+
 import {
-  TX_DATA,
-  ROOT_TXS,
-  MERKLE_TREE,
-  MERKLE_ROOT_PROOF,
   BLOCK_INFO,
-  PROOF_PATH,
+  MERKLE_ROOT_PROOF,
+  MERKLE_TREE,
   PATH_PAIR,
+  PROOF_PATH,
+  ROOT_TXS,
+  TX_DATA,
   TX_PROOF
 } from './actions';
 
-import sha256 from 'js-sha256';
-
-export function broadcastTxData(tx) {
-  return { type: TX_DATA, payload: tx };
-}
-
-export function broadcastRootTxs(rootTxs) {
-  return { type: ROOT_TXS, payload: rootTxs };
-}
-
-export function broadcastMerkleTree(merkleTree) {
-  return { type: MERKLE_TREE, payload: merkleTree };
+export function broadcastBlockInfo(blockInfo) {
+  return { type: BLOCK_INFO, payload: blockInfo };
 }
 
 export function broadcastMerkleRootProof(rootProof) {
   return { type: MERKLE_ROOT_PROOF, payload: rootProof };
 }
 
-export function broadcastProofPath(proofPath) {
-  return { type: PROOF_PATH, payload: proofPath };
+export function broadcastMerkleTree(merkleTree) {
+  return { type: MERKLE_TREE, payload: merkleTree };
 }
 
 export function broadcastPathPair(pathPair) {
   return { type: PATH_PAIR, payload: pathPair };
 }
 
-export function broadcastBlockInfo(blockInfo) {
-  return { type: BLOCK_INFO, payload: blockInfo };
+export function broadcastProofPath(proofPath) {
+  return { type: PROOF_PATH, payload: proofPath };
+}
+
+export function broadcastRootTxs(rootTxs) {
+  return { type: ROOT_TXS, payload: rootTxs };
+}
+
+export function broadcastTxData(tx) {
+  return { type: TX_DATA, payload: tx };
 }
 
 export function broadcastTxProof(txProof) {
@@ -44,6 +46,38 @@ export function broadcastTxProof(txProof) {
 }
 
 // *************************************** /
+
+function initSocket() {
+  let wsSocket;
+  let subMsg = { op: 'blocks_sub' };
+  if (!wsSocket) {
+    wsSocket = new WebSocket('wss://ws.blockchain.info/inv');
+    wsSocket.onopen = function(event) {
+      console.log('SOCKET IS OPEN');
+      wsSocket.send(JSON.stringify(subMsg));
+      //store.dispatch(broadcastSocketStatus('OPEN'));
+    };
+    wsSocket.onmessage = function(event) {
+      let blockData = JSON.parse(event.data);
+      let currentState = store.getState();
+      console.log('Latest Block Data ----> ', blockData);
+      console.log(currentState);
+      //store.dispatch(handleNewTxs(txsData.x, currentState.address));
+    };
+  }
+
+  function getSocket() {
+    return wsSocket;
+  }
+
+  return {
+    getSocket
+  };
+}
+
+const socket = initSocket();
+
+// DISPATCH LOGIC
 
 let merkleTree = [];
 let proofPairPath = [];

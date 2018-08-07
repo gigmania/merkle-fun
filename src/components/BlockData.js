@@ -2,6 +2,7 @@
 
 import React from 'react';
 import '../styles/App.css';
+import '../styles/BlockData.css';
 
 type Props = {
   txs: (?string)[],
@@ -22,13 +23,16 @@ const BlockData = (props: Props) => {
         <span className="block-text"> {blockInfo.block_index}</span>
       </div>
       <div className="block-details">
-        <span className="block-text-title">Height:</span> <span className="block-text">{blockInfo.height}</span>
+        <span className="block-text-title">Height:</span>
+        <span className="block-text">{blockInfo.height}</span>
       </div>
       <div className="block-details">
-        <span className="block-text-title">Bits:</span> <span className="block-text">{blockInfo.bits}</span>
+        <span className="block-text-title">Bits:</span>
+        <span className="block-text">{blockInfo.bits}</span>
       </div>
       <div className="block-details">
-        <span className="block-text-title">Hash:</span> <span className="block-text">{blockInfo.hash}</span>
+        <span className="block-text-title">Hash:</span>
+        <span className="block-text">{blockInfo.hash}</span>
       </div>
     </div>
   );
