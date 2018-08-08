@@ -14,11 +14,11 @@ type Props = {
   pathPair: (?string)[][],
   txProof: string,
   showTxData: Function
-}
+};
 
 type State = {
   selected: boolean
-}
+};
 
 class Block extends Component<Props, State> {
   constructor(props) {
@@ -26,9 +26,6 @@ class Block extends Component<Props, State> {
     this.state = {
       selected: false
     };
-  }
-  setTxToProve() {
-    //this.props.showTxData(this.props.transaction);
   }
   render() {
     const { level, transaction, txData, txProof } = this.props;

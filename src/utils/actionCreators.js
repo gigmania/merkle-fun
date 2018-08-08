@@ -34,6 +34,7 @@ export function broadcastProofPath(proofPath) {
 }
 
 export function broadcastRootTxs(rootTxs) {
+  console.log('in the creator');
   return { type: ROOT_TXS, payload: rootTxs };
 }
 
@@ -62,6 +63,7 @@ function initSocket() {
       let currentState = store.getState();
       console.log('Latest Block Data ----> ', blockData);
       console.log(currentState);
+      store.dispatch(fetchBlockData(blockData.x.hash));
       //store.dispatch(handleNewTxs(txsData.x, currentState.address));
     };
   }
@@ -161,6 +163,15 @@ export function setMerkleRootProof(rootProof) {
   };
 }
 
+export function resetProofs() {
+  console.log('in the reset proofs');
+  return dispatch => {
+    dispatch(broadcastRootTxs({}));
+    dispatch(broadcastMerkleRootProof(''));
+    dispatch(broadcastMerkleTree([]));
+  };
+}
+
 export function getLatestHash(root, txs) {
   merkleTree = [];
   return dispatch => {
@@ -172,6 +183,10 @@ export function getLatestHash(root, txs) {
     dispatch(setMerkleRootProof(calcRoot));
     merkleTree.unshift([root]);
     dispatch(setMerkleTree(merkleTree));
+    setTimeout(function() {
+      console.log('in the timeout');
+      dispatch(resetProofs());
+    }, 10000);
   };
 }
 
