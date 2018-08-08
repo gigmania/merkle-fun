@@ -9,13 +9,14 @@ import TxData from './TxData';
 import Spinner from './Spinner';
 
 import '../styles/App.css';
+import '../styles/Tree.css';
 
 type State = {
   treeLoading: boolean,
   satoshiSent: string,
   txsCount: string,
   price: string
-}
+};
 
 type Props = {
   fetchLatestHash: Function,
@@ -36,7 +37,7 @@ type Props = {
     tx: any,
     mrkl_root: string
   }
-}
+};
 
 class Tree extends Component<Props, State> {
   state = {
@@ -124,7 +125,6 @@ class Tree extends Component<Props, State> {
   }
 
   render() {
-    // const { price, satoshiSent, txsCount } = this.state;
     const { merkleTree, rootTxs, merkleRootProof, txData, blockInfo } = this.props;
     const root = blockInfo.mrkl_root;
     const txs = rootTxs.txs;
@@ -133,12 +133,9 @@ class Tree extends Component<Props, State> {
     let merkleProofBox;
     let proofBtns;
     let txElem;
-    // let numPrice = Number(price);
-    // let btcSent = satoshiSent * 0.00000001;
-    // let sendValue = numPrice * btcSent;
     if (root != null) {
       blockInfoBox = (
-        <div className="data-box">
+        <div className="block-info-box">
           <BlockData blockInfo={blockInfo} txs={txs} />
         </div>
       );
@@ -187,15 +184,15 @@ class Tree extends Component<Props, State> {
       if (merkleRootProof === root) {
         merkleProofBox = (
           <div className="merkle-root-proof">
-            <span className="block-text-title"> merkle root proof: </span>
-            <span className="proof-true"> {merkleRootProof} </span>
+            <span className="block-text-title"> Merkle Root Proof: </span>
+            <span className="proof-true proof-solution"> {merkleRootProof} </span>
           </div>
         );
       } else {
         merkleProofBox = (
           <div className="merkle-root-proof">
-            <span className="block-text-title"> merkle root proof: </span>
-            <span className="proof-false">{merkleRootProof} </span>
+            <span className="block-text-title"> Merkle Root Proof: </span>
+            <span className="proof-false proof-solution">{merkleRootProof} </span>
           </div>
         );
       }

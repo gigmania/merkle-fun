@@ -11,13 +11,11 @@
   font-family: 'Poppins', sans-serif;
 }
 
-.tree-box {
-  display: flex;
-  display: -webkit-flex;
-  width: 100%;
-  -webkit-flex-direction: column;
-  flex-direction: column;
-  align-items: center;
+.block-text-title {
+  color: #404040;
+  font-size: 14px;
+  margin-bottom: -5px;
+  text-decoration: underline;
 }
 
 .app-header {
@@ -34,15 +32,6 @@
 
 .app-title {
   margin-left: 2%;
-}
-
-.data-box {
-  display: flex;
-  display: -webkit-flex;
-  width: 100%;
-  justify-content: center;
-  font-size: 12px;
-  align-items: center;
 }
 
 .spinner-box {
@@ -68,56 +57,6 @@
   color: #03a9f4;
 }
 
-.merkle-root-box {
-  display: flex;
-  display: -webkit-flex;
-  justify-content: center;
-  width: 100%;
-  -webkit-flex-direction: column;
-  flex-direction: column;
-  align-items: center;
-}
-
-.root-proof-box {
-  display: flex;
-  display: -webkit-flex;
-  justify-content: center;
-  width: 100%;
-  -webkit-flex-direction: column;
-  flex-direction: column;
-  align-items: center;
-}
-
-.merkle-root {
-  text-align: center;
-  font-size: 30px;
-  margin-top: 12px;
-}
-
-.merkle-root-text {
-  color: #707070;
-}
-
-/* .merkle-root-text:hover {
-  cursor: pointer;
-  opacity: 0.7;
-} */
-
-.merkle-root-proof {
-  text-align: center;
-  font-size: 28px;
-  height: 32px;
-  margin-top: 3px;
-}
-
-.proof-true {
-  color: green;
-}
-
-.proof-false {
-  color: red;
-}
-
 .btc-summary-info-box {
   display: flex;
   display: -webkit-flex;
@@ -127,38 +66,6 @@
   align-items: center;
   flex-basis: 30%;
   margin-top: 15px;
-}
-
-.proof-text {
-  padding-left: 3px;
-}
-
-.tx-details-box {
-  display: flex;
-  display: -webkit-flex;
-  -webkit-flex-direction: column;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex-basis: 94%;
-}
-
-.tx-details {
-  display: flex;
-  display: -webkit-flex;
-  justify-content: center;
-}
-
-.tx-raw {
-  height: 28px;
-  font-size: 24px;
-  border-top: 2px dashed #404040;
-  padding: 15px 125px 0px 125px;
-}
-
-.tx-proof {
-  height: 28px;
-  font-size: 24px;
 }
 
 .btn-blue {
@@ -184,10 +91,6 @@
   color: #1e88e5;
 }
 
-.prove-merkle-root {
-  margin-top: 15px;
-}
-
 .btn {
   padding: 12px 24px;
   overflow: hidden;
@@ -209,10 +112,6 @@
 .btn:active {
   background-color: rgba(236, 240, 241, 0.3);
   color: #2ecc71;
-}
-
-.prove-merkle-root {
-  margin-top: 15px;
 }
 
 .tx-root-proof {

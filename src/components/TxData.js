@@ -5,12 +5,13 @@ import { connect } from 'react-redux';
 import { findProofPath } from '../utils/actionCreators';
 
 import '../styles/App.css';
+import '../styles/TxData.css';
 
 type Props = {
   txProof: string,
   root: string,
   txs: (?string)[],
-  proofPath:  (?string)[][],
+  proofPath: (?string)[][],
   txData: string,
   getProofPath: Function
 };
@@ -22,6 +23,7 @@ class TxData extends Component<Props> {
   render() {
     let txProofBtn;
     let txRootProof;
+    let rootProofSolution;
     const { txProof, root } = this.props;
     if (this.props.proofPath && this.props.proofPath.length < 1) {
       txProofBtn = (
@@ -34,26 +36,23 @@ class TxData extends Component<Props> {
     }
     if (txProof.length > 0) {
       if (txProof === root) {
-        txRootProof = (
-          <div className="tx-details tx-proof">
-            <span className="block-text-title">tx proof:</span>
-            <span className="proof-text proof-true">{this.props.txProof} </span>
-          </div>
-        );
+        rootProofSolution = <span className="proof-text proof-true">{this.props.txProof} </span>;
       } else {
-        txRootProof = (
-          <div className="tx-details tx-proof">
-            <span className="block-text-title">tx proof:</span>
-            <span className="proof-text proof-false">{this.props.txProof} </span>
-          </div>
-        );
+        rootProofSolution = <span className="proof-text proof-false">{this.props.txProof} </span>;
       }
+      txRootProof = (
+        <div className="tx-details tx-proof">
+          <span className="block-text-title">Tx Proof:</span>
+          {rootProofSolution}
+        </div>
+      );
     }
 
     return (
       <div className="tx-details-box">
         <div className="tx-details tx-raw">
-          <span className="block-text-title">tx hash:</span> <span className="block-text">{this.props.txData} </span>
+          <span className="block-text-title">Random TX Hash:</span>
+          <span className="tx-text">{this.props.txData} </span>
         </div>
         {txRootProof}
         {txProofBtn}

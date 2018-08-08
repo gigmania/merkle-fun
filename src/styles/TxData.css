@@ -1,0 +1,32 @@
+.proof-text {
+  font-family: 'Geo', sans-serif;
+  font-size: 34px;
+}
+
+.tx-details {
+  display: flex;
+  display: -webkit-flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}
+
+.tx-details-box {
+  display: flex;
+  display: -webkit-flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.tx-raw {
+  font-size: 24px;
+}
+
+.tx-text {
+  color: #707070;
+  font-family: 'Geo', sans-serif;
+  font-size: 34px;
+}
