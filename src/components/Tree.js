@@ -141,8 +141,8 @@ class Tree extends Component<Props, State> {
       );
       mrklRootElem = (
         <div className="merkle-root">
-          <span className="block-text-title"> Merkle Root: </span>
-          <span className="merkle-root-text">{root}</span>
+          <span className="block-text-title block-text-title--details"> Merkle Root: </span>
+          <span className="merkle-root-text text--hash">{root}</span>
         </div>
       );
     } else {
@@ -184,15 +184,15 @@ class Tree extends Component<Props, State> {
       if (merkleRootProof === root) {
         merkleProofBox = (
           <div className="merkle-root-proof">
-            <span className="block-text-title"> Merkle Root Proof: </span>
-            <span className="proof-true proof-solution"> {merkleRootProof} </span>
+            <span className="block-text-title block-text-title--details"> Merkle Root Proof: </span>
+            <span className="proof-true proof-solution text--hash"> {merkleRootProof} </span>
           </div>
         );
       } else {
         merkleProofBox = (
           <div className="merkle-root-proof">
-            <span className="block-text-title"> Merkle Root Proof: </span>
-            <span className="proof-false proof-solution">{merkleRootProof} </span>
+            <span className="block-text-title block-text-title--details"> Merkle Root Proof: </span>
+            <span className="proof-false proof-solution text--hash">{merkleRootProof} </span>
           </div>
         );
       }

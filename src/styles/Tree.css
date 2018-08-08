@@ -32,7 +32,7 @@
   flex-direction: column;
   width: 100%;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .merkle-root-proof {
@@ -76,4 +76,46 @@
   -webkit-flex-direction: column;
   flex-direction: column;
   align-items: center;
+}
+
+@media screen and (max-width: 1350px) {
+  .text--hash {
+    font-size: 24px;
+  }
+  .data-box {
+    padding: 15px 35px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .text--hash {
+    font-size: 21px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .text--hash {
+    font-size: 19px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .text--hash {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .text--hash {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .text--hash {
+    font-size: 12px;
+  }
+  .data-box {
+    padding: 15px 0px;
+  }
 }

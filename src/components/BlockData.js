@@ -19,20 +19,20 @@ const BlockData = (props: Props) => {
   return (
     <div className="block-details-box">
       <div className="block-details">
-        <span className="block-text-title"> Block Index:</span>
+        <span className="block-text-title block-text-title--details"> Block Index:</span>
         <span className="block-text"> {blockInfo.block_index}</span>
       </div>
       <div className="block-details">
-        <span className="block-text-title">Height:</span>
+        <span className="block-text-title block-text-title--details">Height:</span>
         <span className="block-text">{blockInfo.height}</span>
       </div>
       <div className="block-details">
-        <span className="block-text-title">Bits:</span>
+        <span className="block-text-title block-text-title--details">Bits:</span>
         <span className="block-text">{blockInfo.bits}</span>
       </div>
       <div className="block-details">
-        <span className="block-text-title">Hash:</span>
-        <span className="block-text">{blockInfo.hash}</span>
+        <span className="block-text-title block-text-title--details">Hash:</span>
+        <span className="block-text text--hash">{blockInfo.hash}</span>
       </div>
     </div>
   );
