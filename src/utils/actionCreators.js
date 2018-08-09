@@ -48,7 +48,6 @@ export function broadcastTxProof(txProof) {
 }
 
 export function broadcastTxsFetchStatus(status) {
-  console.log('I am the bbroacast status');
   return { type: TXS_FETCH_STATUS, payload: status };
 }
 
@@ -70,7 +69,7 @@ function initSocket() {
       console.log('Latest Block Data ----> ', blockData);
       console.log(currentState);
       store.dispatch(fetchBlockData(blockData.x.hash));
-      //store.dispatch(handleNewTxs(txsData.x, currentState.address));
+      store.dispatch(resetProofs());
     };
   }
 
@@ -175,6 +174,10 @@ export function resetProofs() {
     dispatch(broadcastRootTxs({}));
     dispatch(broadcastMerkleRootProof(''));
     dispatch(broadcastMerkleTree([]));
+    dispatch(broadcastProofPath([]));
+    dispatch(broadcastPathPair([]));
+    dispatch(broadcastTxProof(''));
+    dispatch(broadcastTxData(''));
   };
 }
 
@@ -191,10 +194,6 @@ export function getLatestHash(root, txs) {
     merkleTree.unshift([root]);
     dispatch(setMerkleTree(merkleTree));
     dispatch(broadcastTxsFetchStatus('DONE'));
-    setTimeout(function() {
-      console.log('in the timeout');
-      dispatch(resetProofs());
-    }, 5000);
   };
 }
 
