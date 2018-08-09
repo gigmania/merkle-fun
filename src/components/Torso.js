@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { fetchLatestBlock } from '../utils/actionCreators';
 
 import BlockData from './BlockData';
+import ProofButtons from './ProofButtons';
 import Spinner from './Spinner';
 
 import '../styles/App.css';
@@ -38,7 +39,15 @@ class Torso extends Component {
         </div>
       );
     }
-    return <div className="torso-box">{blockInfoBox}</div>;
+    return (
+      <div className="torso-box">
+        {blockInfoBox}
+        <div className="merkle-root-box">
+          {mrklRootElem}
+          <ProofButtons root={root} txHashes={blockInfo.tx} />
+        </div>
+      </div>
+    );
   }
 }
 

@@ -1,3 +1,37 @@
+.block-info-box {
+  display: flex;
+  display: -webkit-flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.merkle-root {
+  display: flex;
+  display: -webkit-flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  font-size: 30px;
+  margin-top: 12px;
+}
+
+.merkle-root-box {
+  display: flex;
+  display: -webkit-flex;
+  justify-content: center;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.merkle-root-text {
+  color: #707070;
+  font-family: 'Geo', sans-serif;
+  font-size: 38px;
+}
+
 .torso-box {
   display: flex;
   display: -webkit-flex;

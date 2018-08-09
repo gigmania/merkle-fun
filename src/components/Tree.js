@@ -129,26 +129,6 @@ class Tree extends Component<Props, State> {
     let merkleProofBox;
     let proofBtns;
     let txElem;
-    if (root != null) {
-      blockInfoBox = (
-        <div className="block-info-box">
-          <BlockData blockInfo={blockInfo} txs={txs} />
-        </div>
-      );
-      mrklRootElem = (
-        <div className="merkle-root">
-          <span className="block-text-title block-text-title--details"> Merkle Root: </span>
-          <span className="merkle-root-text text--hash">{root}</span>
-        </div>
-      );
-    } else {
-      blockInfoBox = (
-        <div className="spinner-box top-50">
-          <div className="spinner-text">FETCHING LATEST BITCOIN BLOCK</div>
-          <Spinner />
-        </div>
-      );
-    }
     if (merkleRootProof.length < 1) {
       merkleProofBox = <div className="merkle-root-proof" />;
       if (root && root.length > 0) {
@@ -211,9 +191,7 @@ class Tree extends Component<Props, State> {
     }
     return (
       <div className="tree-box">
-        {blockInfoBox}
         <div className="merkle-root-box">
-          {mrklRootElem}
           <div className="root-proof-box">
             {merkleProofBox}
             {proofBtns}
