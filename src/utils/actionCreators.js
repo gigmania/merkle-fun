@@ -61,7 +61,6 @@ function initSocket() {
     wsSocket.onopen = function(event) {
       console.log('SOCKET IS OPEN');
       wsSocket.send(JSON.stringify(subMsg));
-      //store.dispatch(broadcastSocketStatus('OPEN'));
     };
     wsSocket.onmessage = function(event) {
       let blockData = JSON.parse(event.data);

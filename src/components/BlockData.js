@@ -5,7 +5,6 @@ import '../styles/App.css';
 import '../styles/BlockData.css';
 
 type Props = {
-  txs: (?string)[],
   blockInfo: {
     block_index: number,
     height: number,

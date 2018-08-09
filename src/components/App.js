@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { store } from '../utils/store';
-import Tree from './Tree';
+
+// import Tree from './Tree';
+import Torso from './Torso';
 import '../styles/App.css';
 
 class App extends Component {
@@ -19,7 +21,7 @@ class App extends Component {
           <header className="app-header">
             <div className="app-title">MERKLATOR</div>
           </header>
-          <Tree />
+          <Torso />
         </div>
       </Provider>
     );
