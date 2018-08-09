@@ -10,7 +10,8 @@ import {
   PROOF_PATH,
   ROOT_TXS,
   TX_DATA,
-  TX_PROOF
+  TX_PROOF,
+  TXS_FETCH_STATUS
 } from './actions';
 
 export function broadcastBlockInfo(blockInfo) {
@@ -44,6 +45,11 @@ export function broadcastTxData(tx) {
 
 export function broadcastTxProof(txProof) {
   return { type: TX_PROOF, payload: txProof };
+}
+
+export function broadcastTxsFetchStatus(status) {
+  console.log('I am the bbroacast status');
+  return { type: TXS_FETCH_STATUS, payload: status };
 }
 
 // *************************************** /
@@ -175,6 +181,7 @@ export function resetProofs() {
 export function getLatestHash(root, txs) {
   merkleTree = [];
   return dispatch => {
+    dispatch(broadcastTxsFetchStatus('FETCHING'));
     let hashArray = txs.map(tx => {
       return tx.hash;
     });
@@ -183,10 +190,11 @@ export function getLatestHash(root, txs) {
     dispatch(setMerkleRootProof(calcRoot));
     merkleTree.unshift([root]);
     dispatch(setMerkleTree(merkleTree));
+    dispatch(broadcastTxsFetchStatus('DONE'));
     setTimeout(function() {
       console.log('in the timeout');
       dispatch(resetProofs());
-    }, 10000);
+    }, 5000);
   };
 }
 
@@ -248,7 +256,6 @@ export function findProofPath(txs, tx) {
 }
 
 // Block Info
-
 export function fetchBlockData(blockHash) {
   return dispatch => {
     fetch(`https://blockchain.info/rawblock/${blockHash}?cors=true`)

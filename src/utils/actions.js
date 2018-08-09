@@ -1,8 +1,9 @@
-export const TX_DATA = 'TX_DATA';
-export const ROOT_TXS = 'ROOT_TXS';
-export const MERKLE_TREE = 'MERKLE_TREE';
-export const MERKLE_ROOT_PROOF = 'MERKLE_ROOT_PROOF';
 export const BLOCK_INFO = 'BLOCK_INFO';
-export const PROOF_PATH = 'PROOF_PATH';
+export const MERKLE_ROOT_PROOF = 'MERKLE_ROOT_PROOF';
+export const MERKLE_TREE = 'MERKLE_TREE';
 export const PATH_PAIR = 'PATH_PAIR';
+export const PROOF_PATH = 'PROOF_PATH';
+export const ROOT_TXS = 'ROOT_TXS';
+export const TX_DATA = 'TX_DATA';
 export const TX_PROOF = 'TX_PROOF';
+export const TXS_FETCH_STATUS = 'TXS_FETCH_STATUS';

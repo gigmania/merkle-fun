@@ -48,19 +48,14 @@ class Tree extends Component<Props, State> {
   };
 
   componentWillMount() {
-    //this.props.fetchLatestHash();
     this.props.getLatestBlock();
   }
-  componentDidMount() {
-    //this.getSummaryData();
-  }
-
   proveMerkleRoot(root, txs) {
-    this.setState((state, props) => {
-      return {
-        treeLoading: !state.treeLoading
-      };
-    });
+    // this.setState((state, props) => {
+    //   return {
+    //     treeLoading: !state.treeLoading
+    //   };
+    // });
     this.props.fetchLatestHash(root, txs);
   }
 
@@ -125,7 +120,8 @@ class Tree extends Component<Props, State> {
   }
 
   render() {
-    const { merkleTree, rootTxs, merkleRootProof, txData, blockInfo } = this.props;
+    console.log(this.props);
+    const { merkleTree, rootTxs, merkleRootProof, txData, blockInfo, txsFetchStatus } = this.props;
     const root = blockInfo.mrkl_root;
     const txs = rootTxs.txs;
     let blockInfoBox;
@@ -169,7 +165,7 @@ class Tree extends Component<Props, State> {
             </div>
           );
         }
-        if (this.state.treeLoading === true) {
+        if (txsFetchStatus === 'FETCHING') {
           proofBtns = (
             <div className="spinner-box">
               <div className="spinner-text">
@@ -231,11 +227,12 @@ class Tree extends Component<Props, State> {
 }
 
 const mapStateToProps = state => ({
-  txData: state.txData,
-  rootTxs: state.rootTxs,
-  merkleTree: state.merkleTree,
+  blockInfo: state.blockInfo,
   merkleRootProof: state.merkleRootProof,
-  blockInfo: state.blockInfo
+  merkleTree: state.merkleTree,
+  rootTxs: state.rootTxs,
+  txData: state.txData,
+  txsFetchStatus: state.txsFetchStatus
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({
