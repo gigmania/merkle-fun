@@ -14,11 +14,12 @@ class Torso extends Component {
     this.props.getLatestBlock();
   }
   render() {
-    const { blockInfo } = this.props;
+    const { blockInfo, merkleRootProof } = this.props;
     const root = blockInfo.mrkl_root;
     console.log(blockInfo);
     let blockInfoBox;
     let mrklRootElem;
+    let merkleProofBox = <div className="merkle-root-proof" />;
     if (root != null) {
       blockInfoBox = (
         <div className="block-info-box">
@@ -31,6 +32,23 @@ class Torso extends Component {
           <span className="merkle-root-text text--hash">{root}</span>
         </div>
       );
+      if (merkleRootProof.length > 1) {
+        if (merkleRootProof === root) {
+          merkleProofBox = (
+            <div className="merkle-root-proof">
+              <span className="block-text-title block-text-title--details"> Merkle Root Proof: </span>
+              <span className="proof-true proof-solution text--hash"> {merkleRootProof} </span>
+            </div>
+          );
+        } else {
+          merkleProofBox = (
+            <div className="merkle-root-proof">
+              <span className="block-text-title block-text-title--details"> Merkle Root Proof: </span>
+              <span className="proof-false proof-solution text--hash">{merkleRootProof} </span>
+            </div>
+          );
+        }
+      }
     } else {
       blockInfoBox = (
         <div className="spinner-box top-50">
@@ -44,6 +62,7 @@ class Torso extends Component {
         {blockInfoBox}
         <div className="merkle-root-box">
           {mrklRootElem}
+          <div className="root-proof-box">{merkleProofBox}</div>
           <ProofButtons root={root} txHashes={blockInfo.tx} />
         </div>
       </div>
@@ -51,7 +70,7 @@ class Torso extends Component {
   }
 }
 
-const mapStateToProps = state => ({ blockInfo: state.blockInfo });
+const mapStateToProps = state => ({ blockInfo: state.blockInfo, merkleRootProof: state.merkleRootProof });
 const mapDispatchToProps = dispatch => ({
   getLatestBlock() {
     dispatch(fetchLatestBlock());

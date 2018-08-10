@@ -14,16 +14,15 @@ class ProofButtons extends Component {
     };
   }
   proveMerkleRoot(root, txs) {
-    console.log('in the proof method --> ', txs);
-    //this.props.fetchLatestHash(root, txs);
+    this.props.fetchLatestHash(root, txs);
   }
   render() {
     console.log('PROOF BUTTONS PROPS --->> ', this.props);
-    const { merkleRootProof, root, txHashes, txsFetchStatus } = this.props;
+    const { merkleRootProof, root, txHashes, txsFetchStatus, txData } = this.props;
     let proofBtns = <div />;
     if (merkleRootProof.length < 1) {
       if (root && root.length > 0) {
-        if (txsFetchStatus === '') {
+        if (txsFetchStatus === 'INIT') {
           proofBtns = (
             <div className="prove-merkle-root">
               <button
@@ -47,6 +46,16 @@ class ProofButtons extends Component {
           );
         }
       }
+    } else {
+      if (txsFetchStatus === 'DONE' && txData.length < 1) {
+        proofBtns = (
+          <div className="prove-merkle-root">
+            <button className="select-random-tx btn" type="button" onClick={() => this.pickRandomTx()}>
+              <span> SELECT RANDOM TX </span>
+            </button>
+          </div>
+        );
+      }
     }
     return proofBtns;
   }
@@ -55,7 +64,8 @@ class ProofButtons extends Component {
 const mapStateToProps = state => ({
   merkleRootProof: state.merkleRootProof,
   merkleTree: state.merkleTree,
-  txsFetchStatus: state.txsFetchStatus
+  txsFetchStatus: state.txsFetchStatus,
+  txData: state.txData
 });
 const mapDispatchToProps = dispatch => ({
   fetchLatestHash(root, txs) {

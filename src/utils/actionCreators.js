@@ -177,6 +177,7 @@ export function resetProofs() {
     dispatch(broadcastPathPair([]));
     dispatch(broadcastTxProof(''));
     dispatch(broadcastTxData(''));
+    dispatch(broadcastTxsFetchStatus('INIT'));
   };
 }
 

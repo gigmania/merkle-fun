@@ -19,7 +19,7 @@ const DEFAULT_STATE = {
   rootTxs: {},
   txData: '',
   txProof: '',
-  txsFetchStatus: ''
+  txsFetchStatus: 'INIT'
 };
 
 const setBlockInfo = (state, action) => Object.assign({}, state, { blockInfo: action.payload });
