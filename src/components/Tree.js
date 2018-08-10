@@ -115,51 +115,8 @@ class Tree extends Component<Props, State> {
     let merkleProofBox;
     let proofBtns;
     let txElem;
-    if (merkleRootProof.length < 1) {
-      merkleProofBox = <div className="merkle-root-proof" />;
-      if (root && root.length > 0) {
-        if (this.state.treeLoading === false) {
-          proofBtns = (
-            <div className="prove-merkle-root">
-              <button
-                className="prove-root btn-blue"
-                type="button"
-                onClick={() => this.proveMerkleRoot(root, blockInfo.tx)}
-              >
-                <span> PROVE MERKLE ROOT </span>
-              </button>
-            </div>
-          );
-        }
-        if (txsFetchStatus === 'FETCHING') {
-          proofBtns = (
-            <div className="spinner-box">
-              <div className="spinner-text">
-                BUILDING MERKLE TREE FROM <span className="txs-length"> {blockInfo.tx.length} </span>TXS HASHES
-              </div>
-              <Spinner />
-            </div>
-          );
-        }
-      }
-    } else {
-      if (txData.length > 0) {
-        txElem = (
-          <div className="data-box">
-            <TxData txData={txData} txs={txs} root={root} />
-          </div>
-        );
-      }
-    }
     return (
       <div className="tree-box">
-        <div className="merkle-root-box">
-          <div className="root-proof-box">
-            {merkleProofBox}
-            {proofBtns}
-          </div>
-        </div>
-        {txElem}
         {merkleTree.map((trxs, index) => <Level key={index} index={index} txs={trxs} merkleProof={merkleRootProof} />)}
       </div>
     );

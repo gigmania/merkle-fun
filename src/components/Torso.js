@@ -5,6 +5,7 @@ import { fetchLatestBlock } from '../utils/actionCreators';
 import BlockData from './BlockData';
 import ProofButtons from './ProofButtons';
 import Spinner from './Spinner';
+import Tree from './Tree';
 import TxData from './TxData';
 
 import '../styles/App.css';
@@ -74,6 +75,7 @@ class Torso extends Component {
         </div>
         {txElem}
         <ProofButtons root={root} txHashes={blockInfo.tx} />
+        <Tree />
       </div>
     );
   }
