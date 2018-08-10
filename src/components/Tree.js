@@ -54,11 +54,6 @@ class Tree extends Component<Props, State> {
   //   this.props.fetchLatestHash(root, txs);
   // }
 
-  // pickRandomTx() {
-  //   const txHash = this.randomize(this.props.rootTxs.txs);
-  //   this.props.showTxData(txHash);
-  // }
-
   getBTCSent() {
     return fetch('https://blockchain.info/q/24hrbtcsent?cors=true').then(result => {
       return result.text();
@@ -110,10 +105,6 @@ class Tree extends Component<Props, State> {
     });
   }
 
-  randomize(arr) {
-    return arr[Math.floor(Math.random() * arr.length)];
-  }
-
   render() {
     console.log(this.props);
     const { merkleTree, rootTxs, merkleRootProof, txData, blockInfo, txsFetchStatus } = this.props;
@@ -152,30 +143,6 @@ class Tree extends Component<Props, State> {
         }
       }
     } else {
-      if (merkleRootProof === root) {
-        merkleProofBox = (
-          <div className="merkle-root-proof">
-            <span className="block-text-title block-text-title--details"> Merkle Root Proof: </span>
-            <span className="proof-true proof-solution text--hash"> {merkleRootProof} </span>
-          </div>
-        );
-      } else {
-        merkleProofBox = (
-          <div className="merkle-root-proof">
-            <span className="block-text-title block-text-title--details"> Merkle Root Proof: </span>
-            <span className="proof-false proof-solution text--hash">{merkleRootProof} </span>
-          </div>
-        );
-      }
-      if (txData.length < 1) {
-        proofBtns = (
-          <div className="prove-merkle-root">
-            <button className="select-random-tx btn" type="button" onClick={() => this.pickRandomTx()}>
-              <span> SELECT RANDOM TX </span>
-            </button>
-          </div>
-        );
-      }
       if (txData.length > 0) {
         txElem = (
           <div className="data-box">

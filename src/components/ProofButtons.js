@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getLatestHash, txData } from '../utils/actionCreators';
+import { getLatestHash, txData, findProofPath } from '../utils/actionCreators';
 
 import Spinner from './Spinner';
 
@@ -12,6 +12,10 @@ class ProofButtons extends Component {
     this.state = {
       treeLoading: false
     };
+    this.makeProof = this.makeProof.bind(this);
+  }
+  makeProof(txs, txData) {
+    this.props.getProofPath(txs, txData);
   }
   pickRandomTx() {
     const txHash = this.randomize(this.props.rootTxs.txs);
@@ -54,14 +58,28 @@ class ProofButtons extends Component {
         }
       }
     } else {
-      if (txsFetchStatus === 'DONE' && txData.length < 1) {
-        proofBtns = (
-          <div className="prove-merkle-root">
-            <button className="select-random-tx btn" type="button" onClick={() => this.pickRandomTx()}>
-              <span> SELECT RANDOM TX </span>
-            </button>
-          </div>
-        );
+      if (txsFetchStatus === 'DONE') {
+        if (txData.length < 1) {
+          proofBtns = (
+            <div className="prove-merkle-root">
+              <button className="select-random-tx btn" type="button" onClick={() => this.pickRandomTx()}>
+                <span> SELECT RANDOM TX </span>
+              </button>
+            </div>
+          );
+        } else {
+          proofBtns = (
+            <div className="tx-root-proof">
+              <button
+                className="tx-proof-btn btn-blue"
+                type="button"
+                onClick={() => this.makeProof(this.props.rootTxs.txs, this.props.txData)}
+              >
+                <span> PROVE TX IN BLOCK </span>
+              </button>
+            </div>
+          );
+        }
       }
     }
     return proofBtns;
@@ -81,6 +99,9 @@ const mapDispatchToProps = dispatch => ({
   },
   showTxData(tx) {
     dispatch(txData(tx));
+  },
+  getProofPath(txs, tx) {
+    dispatch(findProofPath(txs, tx));
   }
 });
 

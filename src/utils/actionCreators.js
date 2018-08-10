@@ -251,6 +251,7 @@ export function findProofPath(txs, tx) {
     dispatch(setPathPair(proofPairPath));
     let proofRoot = merkleProofRoot(proof, tx);
     dispatch(broadcastTxProof(proofRoot));
+    dispatch(broadcastTxsFetchStatus('PATH'));
   };
 }
 

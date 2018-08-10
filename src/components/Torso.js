@@ -5,6 +5,7 @@ import { fetchLatestBlock } from '../utils/actionCreators';
 import BlockData from './BlockData';
 import ProofButtons from './ProofButtons';
 import Spinner from './Spinner';
+import TxData from './TxData';
 
 import '../styles/App.css';
 import '../styles/Torso.css';
@@ -14,11 +15,11 @@ class Torso extends Component {
     this.props.getLatestBlock();
   }
   render() {
-    const { blockInfo, merkleRootProof } = this.props;
+    const { blockInfo, merkleRootProof, txData } = this.props;
     const root = blockInfo.mrkl_root;
-    console.log(blockInfo);
     let blockInfoBox;
     let mrklRootElem;
+    let txElem;
     let merkleProofBox = <div className="merkle-root-proof" />;
     if (root != null) {
       blockInfoBox = (
@@ -57,20 +58,32 @@ class Torso extends Component {
         </div>
       );
     }
+    if (txData.length > 0) {
+      txElem = (
+        <div className="data-box">
+          <TxData txData={txData} root={root} />
+        </div>
+      );
+    }
     return (
       <div className="torso-box">
         {blockInfoBox}
         <div className="merkle-root-box">
           {mrklRootElem}
           <div className="root-proof-box">{merkleProofBox}</div>
-          <ProofButtons root={root} txHashes={blockInfo.tx} />
         </div>
+        {txElem}
+        <ProofButtons root={root} txHashes={blockInfo.tx} />
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ({ blockInfo: state.blockInfo, merkleRootProof: state.merkleRootProof });
+const mapStateToProps = state => ({
+  blockInfo: state.blockInfo,
+  merkleRootProof: state.merkleRootProof,
+  txData: state.txData
+});
 const mapDispatchToProps = dispatch => ({
   getLatestBlock() {
     dispatch(fetchLatestBlock());

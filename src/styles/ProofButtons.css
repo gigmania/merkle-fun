@@ -1,3 +1,53 @@
+.btn {
+  padding: 12px 24px;
+  overflow: hidden;
+  border-width: 0;
+  outline: none;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  background-color: #2ecc71;
+  color: #ecf0f1;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.btn:hover,
+.btn:focus {
+  background-color: #27ae60;
+  cursor: pointer;
+}
+
+.btn:active {
+  background-color: rgba(236, 240, 241, 0.3);
+  color: #2ecc71;
+}
+
+.btn-blue {
+  padding: 12px 24px;
+  overflow: hidden;
+  border-width: 0;
+  outline: none;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  background-color: #1976d2;
+  color: white;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-blue:hover,
+.btn-blue:focus {
+  background-color: #1e88e5;
+  cursor: pointer;
+}
+
+.btn-blue:active {
+  background-color: rgba(236, 240, 241, 0.3);
+  color: #1e88e5;
+}
+
 .prove-merkle-root {
+  margin-top: 15px;
+}
+
+.tx-root-proof {
   margin-top: 15px;
 }
