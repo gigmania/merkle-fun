@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getLatestHash } from '../utils/actionCreators';
+import { getLatestHash, txData } from '../utils/actionCreators';
 
 import Spinner from './Spinner';
 
@@ -13,8 +13,15 @@ class ProofButtons extends Component {
       treeLoading: false
     };
   }
+  pickRandomTx() {
+    const txHash = this.randomize(this.props.rootTxs.txs);
+    this.props.showTxData(txHash);
+  }
   proveMerkleRoot(root, txs) {
     this.props.fetchLatestHash(root, txs);
+  }
+  randomize(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
   }
   render() {
     console.log('PROOF BUTTONS PROPS --->> ', this.props);
@@ -64,12 +71,16 @@ class ProofButtons extends Component {
 const mapStateToProps = state => ({
   merkleRootProof: state.merkleRootProof,
   merkleTree: state.merkleTree,
-  txsFetchStatus: state.txsFetchStatus,
-  txData: state.txData
+  rootTxs: state.rootTxs,
+  txData: state.txData,
+  txsFetchStatus: state.txsFetchStatus
 });
 const mapDispatchToProps = dispatch => ({
   fetchLatestHash(root, txs) {
     dispatch(getLatestHash(root, txs));
+  },
+  showTxData(tx) {
+    dispatch(txData(tx));
   }
 });
 

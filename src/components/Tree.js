@@ -50,19 +50,14 @@ class Tree extends Component<Props, State> {
   componentWillMount() {
     this.props.getLatestBlock();
   }
-  proveMerkleRoot(root, txs) {
-    // this.setState((state, props) => {
-    //   return {
-    //     treeLoading: !state.treeLoading
-    //   };
-    // });
-    this.props.fetchLatestHash(root, txs);
-  }
+  // proveMerkleRoot(root, txs) {
+  //   this.props.fetchLatestHash(root, txs);
+  // }
 
-  pickRandomTx() {
-    const txHash = this.randomize(this.props.rootTxs.txs);
-    this.props.showTxData(txHash);
-  }
+  // pickRandomTx() {
+  //   const txHash = this.randomize(this.props.rootTxs.txs);
+  //   this.props.showTxData(txHash);
+  // }
 
   getBTCSent() {
     return fetch('https://blockchain.info/q/24hrbtcsent?cors=true').then(result => {
