@@ -11,7 +11,6 @@ type Props = {
   merkleProof: string
 };
 
-
 const Level = (props: Props) => {
   const { index, txs, merkleProof } = props;
   return (
@@ -20,6 +19,5 @@ const Level = (props: Props) => {
     </div>
   );
 };
-
 
 export default Level;

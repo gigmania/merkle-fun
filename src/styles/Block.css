@@ -17,6 +17,11 @@
   border: 1px solid #d500f9 !important;
 }
 
+.tree-block--grey {
+  background-color: white !important;
+  border: 1px solid whitesmoke !important;
+}
+
 .tree-block {
   display: flex;
   display: -webkit-flex;

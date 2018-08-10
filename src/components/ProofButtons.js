@@ -28,7 +28,6 @@ class ProofButtons extends Component {
     return arr[Math.floor(Math.random() * arr.length)];
   }
   render() {
-    console.log('PROOF BUTTONS PROPS --->> ', this.props);
     const { merkleRootProof, root, txHashes, txsFetchStatus, txData } = this.props;
     let proofBtns = <div />;
     if (merkleRootProof.length < 1) {

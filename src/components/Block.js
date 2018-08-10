@@ -28,9 +28,9 @@ class Block extends Component<Props, State> {
     };
   }
   render() {
-    const { level, transaction, txData, txProof } = this.props;
-    let proofLength = this.props.proofPath.length;
-    let pairLength = this.props.pathPair.length;
+    const { level, transaction, txData, txProof, proofPath, pathPair } = this.props;
+    let proofLength = proofPath.length;
+    let pairLength = pathPair.length;
     let onPath = false;
     let proofPair = false;
     if (proofLength > 0) {
@@ -59,7 +59,11 @@ class Block extends Component<Props, State> {
     } else if (proofPair === true) {
       txBlock = <div className={`tree-block level-${level}-block selected-block`} />;
     } else {
-      txBlock = <div className={`tree-block level-${level}-block`} />;
+      if (proofPath.length > 0) {
+        txBlock = <div className={`tree-block tree-block--grey level-${level}-block`} />;
+      } else {
+        txBlock = <div className={`tree-block level-${level}-block`} />;
+      }
     }
     return txBlock;
   }
