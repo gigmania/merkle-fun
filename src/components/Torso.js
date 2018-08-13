@@ -5,6 +5,7 @@ import { fetchLatestBlock } from '../utils/actionCreators';
 import BlockData from './BlockData';
 import ProofButtons from './ProofButtons';
 import Spinner from './Spinner';
+import Timestamp from './Timestamp';
 import Tree from './Tree';
 import TxData from './TxData';
 
@@ -21,7 +22,13 @@ class Torso extends Component {
     let blockInfoBox;
     let mrklRootElem;
     let txElem;
+    let timeElem;
     let merkleProofBox = <div className="merkle-root-proof" />;
+    if (blockInfo.time == null) {
+      timeElem = <div />;
+    } else {
+      timeElem = <Timestamp blockTime={blockInfo.time} />;
+    }
     if (root != null) {
       blockInfoBox = (
         <div className="block-info-box">
@@ -68,6 +75,7 @@ class Torso extends Component {
     }
     return (
       <div className="torso-box">
+        {timeElem}
         {blockInfoBox}
         <div className="merkle-root-box">
           {mrklRootElem}

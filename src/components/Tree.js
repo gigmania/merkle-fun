@@ -37,7 +37,7 @@ type Props = {
 
 class Tree extends Component<Props, State> {
   render() {
-    console.log(this.props);
+    //console.log(this.props);
     const { merkleTree, merkleRootProof } = this.props;
     return (
       <div className="tree-box">

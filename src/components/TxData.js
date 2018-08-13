@@ -17,7 +17,6 @@ type Props = {
 
 class TxData extends Component<Props> {
   render() {
-    let txProofBtn;
     let txRootProof;
     let rootProofSolution;
     const { txProof, root } = this.props;

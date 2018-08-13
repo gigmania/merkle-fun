@@ -6,67 +6,240 @@
   -webkit-flex-wrap: wrap;
   flex-wrap: wrap;
   margin-top: 20px;
-  /* background-color: gainsboro; */
   padding: 10px 10px;
   border-radius: 3px;
+  /* animation-duration: 3s;
+  animation-name: fadein--level; */
 }
+
+/* @keyframes fadein--level {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+} */
 
 .level-0 {
   background-color: #f0f0f0;
+  animation-duration: 5s;
+  animation-name: fadein--level--0;
+}
+
+@keyframes fadein--level--0 {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .level-1 {
   background-color: #e8e8e8;
+  animation-duration: 4s;
+  animation-name: fadein--level--1;
+}
+
+@keyframes fadein--level--1 {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .level-2 {
   background-color: #e0e0e0;
+  animation-duration: 4s;
+  animation-name: fadein--level--2;
+}
+@keyframes fadein--level--2 {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .level-3 {
   background-color: #d8d8d8;
+  animation-duration: 3s;
+  animation-name: fadein--level--3;
+}
+@keyframes fadein--level--3 {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .level-4 {
   background-color: #d0d0d0;
+  animation-duration: 3s;
+  animation-name: fadein--level--4;
+}
+
+@keyframes fadein--level--4 {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .level-5 {
   background-color: #c8c8c8;
+  animation-duration: 3s;
+  animation-name: fadein--level--5;
+}
+
+@keyframes fadein--level--5 {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .level-6 {
   background-color: #c0c0c0;
+  animation-duration: 2s;
+  animation-name: fadein--level--6;
+}
+
+@keyframes fadein--level--6 {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .level-7 {
   background-color: #b8b8b8;
+  animation-duration: 2s;
+  animation-name: fadein--level--7;
+}
+
+@keyframes fadein--level--7 {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .level-8 {
   background-color: #b0b0b0;
+  animation-duration: 2s;
+  animation-name: fadein--level--8;
+}
+
+@keyframes fadein--level--8 {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .level-9 {
   background-color: #a8a8a8;
+  animation-duration: 2s;
+  animation-name: fadein--level--9;
+}
+
+@keyframes fadein--level--9 {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .level-10 {
   background-color: #a0a0a0;
+  animation-duration: 1s;
+  animation-name: fadein--level--10;
+}
+
+@keyframes fadein--level--10 {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .level-11 {
   background-color: #989898;
+  animation-duration: 1s;
+  animation-name: fadein--level--11;
+}
+
+@keyframes fadein--level--11 {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .level-12 {
   background-color: #909090;
+  animation-duration: 1s;
+  animation-name: fadein--level--12;
+}
+
+@keyframes fadein--level--12 {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .level-13 {
   background-color: #888888;
+  animation-duration: 1s;
+  animation-name: fadein--level--13;
+}
+
+@keyframes fadein--level--13 {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .level-14 {
   background-color: #808080;
+  animation-duration: 1s;
+  animation-name: fadein--level--14;
+}
+
+@keyframes fadein--level--14 {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

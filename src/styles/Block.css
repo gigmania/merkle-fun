@@ -1,36 +1,47 @@
-.selected-block {
-  background-color: black !important;
-  border: 1px solid yellow !important;
-}
-
-.path-block {
-  background-color: gainsboro !important;
-}
-
 .pair-block {
-  background-color: yellow !important;
-  border: 1px solid black !important;
+  background-color: #f5f000 !important;
+  border: 1px solid #038496 !important;
+  transition: background-color 12s, border 12s;
 }
 
-.tx-proof-block {
-  background-color: #76ff03 !important;
-  border: 1px solid #d500f9 !important;
-}
-
-.tree-block--grey {
-  background-color: white !important;
-  border: 1px solid whitesmoke !important;
+.selected-block {
+  background-color: #038496 !important;
+  border: 1px solid #f5f000 !important;
+  transition: background-color 12s, border 12s;
 }
 
 .tree-block {
   display: flex;
   display: -webkit-flex;
   margin: 1px 0.5px;
+  animation-duration: 1s;
+  animation-name: fadein--block;
+}
+
+@keyframes fadein--block {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .tree-block:hover {
   opacity: 0.7;
   cursor: pointer;
+}
+
+.tree-block--grey {
+  background-color: white !important;
+  border: 1px solid whitesmoke !important;
+  transition: background-color 10s, border 10s;
+}
+
+.tx-proof-block {
+  background-color: #63da00 !important;
+  border: 1px solid #db0042 !important;
+  transition: background-color 10s, border 10s;
 }
 
 .level-0-block {

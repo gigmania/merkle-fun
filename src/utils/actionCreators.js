@@ -81,7 +81,7 @@ function initSocket() {
   };
 }
 
-const socket = initSocket();
+initSocket();
 
 // DISPATCH LOGIC
 
@@ -262,6 +262,7 @@ export function fetchBlockData(blockHash) {
       .then(result => result.text())
       .then(deets => {
         let blockInfo = JSON.parse(deets);
+        console.log('block2', blockInfo);
         dispatch(broadcastBlockInfo(blockInfo));
       });
   };
@@ -273,6 +274,7 @@ export function fetchLatestBlock() {
       .then(result => result.text())
       .then(blockData => {
         let parseBlock = JSON.parse(blockData);
+        console.log('block', parseBlock);
         dispatch(fetchBlockData(parseBlock.hash));
       });
   };
