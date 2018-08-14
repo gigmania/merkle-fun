@@ -35,7 +35,6 @@ export function broadcastProofPath(proofPath) {
 }
 
 export function broadcastRootTxs(rootTxs) {
-  console.log('in the creator');
   return { type: ROOT_TXS, payload: rootTxs };
 }
 
@@ -198,7 +197,6 @@ export function getLatestHash(root, txs) {
 }
 
 // proof of a single transaction
-
 export function merkleProof(txs, tx, proof = [], altProof = []) {
   if (txs.length === 1) {
     proofPairPath = altProof.slice();
@@ -262,7 +260,6 @@ export function fetchBlockData(blockHash) {
       .then(result => result.text())
       .then(deets => {
         let blockInfo = JSON.parse(deets);
-        console.log('block2', blockInfo);
         dispatch(broadcastBlockInfo(blockInfo));
       });
   };
@@ -274,7 +271,6 @@ export function fetchLatestBlock() {
       .then(result => result.text())
       .then(blockData => {
         let parseBlock = JSON.parse(blockData);
-        console.log('block', parseBlock);
         dispatch(fetchBlockData(parseBlock.hash));
       });
   };
