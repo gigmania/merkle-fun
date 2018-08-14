@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+// import { connect } from 'react-redux';
 import moment from 'moment';
 
 import '../styles/Timestamp.css';
@@ -27,24 +28,40 @@ class Timestamp extends Component {
     let secondsAgo = moment.unix(this.props.blockTime).fromNow();
     console.log('setting time yip yip', secondsAgo);
     this.setState({
-      secondsAgo: secondsAgo
+      secondsAgo: secondsAgo,
+      timestamp: this.props.blockTime
     });
   }
 
   startTimer() {
     setInterval(() => {
       this.setNewBlockTime();
-    }, 20000);
+    }, 60000);
   }
 
   render() {
     console.log('timestamp -----> ', this.props.blockTime);
+    let secondsAgo;
+    if (this.props.blockTime === this.state.timestamp) {
+      secondsAgo = this.state.secondsAgo;
+    } else {
+      secondsAgo = moment.unix(this.props.blockTime).fromNow();
+    }
     return (
       <div className="time-box">
-        <div className="time-time"> {this.state.secondsAgo} </div>
+        <div className="block-details">
+          <span className="block-text-title block-text-title--details"> Block Verified:</span>
+          <span className="time-time block-text"> {secondsAgo} </span>
+        </div>
       </div>
     );
   }
 }
 
+// const mapStateToProps = state => ({
+//   blockInfo: state.blockInfo
+// });
+
 export default Timestamp;
+
+// export default connect(mapStateToProps)(Timestamp);

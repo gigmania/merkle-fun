@@ -1,4 +1,7 @@
 .time-box {
   display: flex;
   display: -webkit-flex;
+  width: 98%;
+  margin-top: 10px;
+  padding-left: 2%;
 }
